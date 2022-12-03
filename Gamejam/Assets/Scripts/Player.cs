@@ -39,7 +39,12 @@ public class Player : MonoBehaviour
             if (Input.GetAxisRaw("Vertical") != 0) {
                 _targetPosGrid = _grid.WorldToGrid(new Vector3(transform.position.x, transform.position.y + Input.GetAxisRaw("Vertical") * _grid.CellSize));
                 if (canMoveTo(_targetPosGrid)) {
-                    
+                    if (IsOre(_targetPosGrid))
+                    {
+                        Debug.Log("Is ore");
+                        m_anim.SetTrigger("Mine");
+                        replaceOre(_targetPosGrid);
+                    }
                     time++;
                     _targetPos = _grid.GridToWorld(_targetPosGrid);
                     isMoving = true;
@@ -48,7 +53,12 @@ public class Player : MonoBehaviour
             else if (Input.GetAxisRaw("Horizontal") != 0) {
                 _targetPosGrid = _grid.WorldToGrid(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal") * _grid.CellSize, transform.position.y));
                 if (canMoveTo(_targetPosGrid)) {
-
+                    if (IsOre(_targetPosGrid))
+                    {
+                        Debug.Log("Is ore");
+                        m_anim.SetTrigger("Mine");
+                        replaceOre(_targetPosGrid);
+                    }
                     time++;
                     _targetPos = _grid.GridToWorld(_targetPosGrid);
                     isMoving = true;
@@ -77,13 +87,7 @@ public class Player : MonoBehaviour
     bool canMoveTo(Vector2Int a_gridPos) {
         _targetTile = _grid.GetTile(a_gridPos);
         Debug.Log(_targetTile.BaseCost);
-        if (IsOre(a_gridPos))
-        {
-            Debug.Log("Is ore");
-            m_anim.SetTrigger("Mine");
-            replaceOre(a_gridPos);
-        }
-        return (_targetTile.BaseCost == 0) ? false : true;
+        return (_targetTile.BaseCost == 0 || _targetTile.CompareTag("Ore")) ? false : true;
     }
 
     bool IsOre(Vector2Int a_gridPos)
