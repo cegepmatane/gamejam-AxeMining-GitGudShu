@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
 
             GameObject t_NewEnnemy = Instantiate(Prefab_Ennemy, t_SpawnPos, Quaternion.identity, transform);
             t_NewEnnemy.GetComponent<Ennemy>().Pathfinder = Pathfinder;
-            t_NewEnnemy.GetComponent<Ennemy>().Grid = Grid;
+            t_NewEnnemy.GetComponent<Ennemy>().grid = Grid;
             t_NewEnnemy.GetComponent<Ennemy>().Objective = Objectives[Random.Range(0, Objectives.Length)];
 
             m_LastSpawn = Time.time;

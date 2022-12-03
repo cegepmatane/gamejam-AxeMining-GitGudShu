@@ -11,10 +11,15 @@ public class MapGenerator : MonoBehaviour
     public int maxCol = 20;
     public int chanceOfGround = 4;
     public int oreAmount = 10;
+    public int ennemyAmount = 4;
 
     private enum TILES { GROUND, WALL, ORE, STAIRS}
     private TILES[,] _tiles;
     private Vector2Int[] _directions = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+    private int _spawnPosX;
+    private int _spawnPosY;
+    private int _spawnRadius = 5;
+    private GameObject _player;
 
     [SerializeField] private Grid _grid;
     [SerializeField] private GameObject _groundTile;
@@ -22,6 +27,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private GameObject _oreTile;
     [SerializeField] private GameObject _stairsTile;
     [SerializeField] private GameObject _miner;
+    [SerializeField] private GameObject _bomb;
     
 
     // Start is called before the first frame update
@@ -37,18 +43,20 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        int t_spawnPosX = Random.Range(1, (int)_grid.ColumnCount - 1);
-        int t_spawnPosY = Random.Range(1, (int)_grid.RowCount - 1);
-        _tiles[t_spawnPosY, t_spawnPosX] = TILES.GROUND;
+        _spawnPosX = Random.Range(1, (int)_grid.ColumnCount - 1);
+        _spawnPosY = Random.Range(1, (int)_grid.RowCount - 1);
+        _tiles[_spawnPosY, _spawnPosX] = TILES.GROUND;
 
-        GenerateGroundAround(t_spawnPosX, t_spawnPosY, true);
+        GenerateGroundAround(_spawnPosX, _spawnPosY, true);
         GenerateOres();
         GenerateStairs();
         PlaceTiles();
 
-        GameObject t_miner = Instantiate(_miner);
-        t_miner.GetComponent<Player>().grid = _grid;
-        t_miner.transform.position = _grid.GridToWorld(new Vector2Int(t_spawnPosX, t_spawnPosY));
+        _player = Instantiate(_miner);
+        _player.GetComponent<Player>().grid = _grid;
+        _player.transform.position = _grid.GridToWorld(new Vector2Int(_spawnPosX, _spawnPosY));
+
+        SpawnEnnemy();
     }
 
     void PlaceTile(GameObject a_tile, int a_x, int a_y) {
@@ -128,14 +136,32 @@ public class MapGenerator : MonoBehaviour
         bool t_findGoodTile = false;
         do
         {
-            int t_x =(int)Random.Range(1, _grid.ColumnCount);
-            int t_y = (int)Random.Range(1, _grid.RowCount);
+            int t_x =(int)Random.Range(1, _grid.ColumnCount - 1);
+            int t_y = (int)Random.Range(1, _grid.RowCount - 1);
             if(_tiles[t_y, t_x] == TILES.GROUND)
             {
                 _tiles[t_y, t_x] = TILES.STAIRS;
                 t_findGoodTile = true;
             }
         } while (!t_findGoodTile);
+    }
+
+    void SpawnEnnemy() {
+        for (int i = 0; i < ennemyAmount; i++) {
+            bool t_findGoodTile = false;
+            do {
+                int t_x = (int)Random.Range(1, _grid.ColumnCount - 1);
+                int t_y = (int)Random.Range(1, _grid.RowCount - 1);
+                if (_tiles[t_y, t_x] == TILES.GROUND /* && Mathf.Abs(t_x - _spawnPosX) >= _spawnRadius && Mathf.Abs(t_y - _spawnPosY) >= _spawnRadius*/) {
+                    GameObject t_ennemy = Instantiate(_bomb);
+                    t_ennemy.GetComponent<Ennemy>().grid = _grid;
+                    t_ennemy.GetComponent<Ennemy>().Objective = _player.transform;
+                    t_ennemy.GetComponent<Ennemy>().Pathfinder = _grid.GetComponent<Pathfinder>();
+                    t_ennemy.transform.position = _grid.GridToWorld(new Vector2Int(t_x, t_y));
+                    t_findGoodTile = true;
+                }
+            } while (!t_findGoodTile);
+        }
     }
 
     void PlaceTiles() {
