@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,6 +11,7 @@ public class Player : MonoBehaviour
     //public int actionCounter = 0;
     public static int actionPerTurn = 3;
     public static int time = 0;
+    public GameObject Tile_Wall;
 
     private Vector3 _targetPos;
     private Vector3 _direction;
@@ -16,8 +19,10 @@ public class Player : MonoBehaviour
     private Tile _targetTile;
     private Vector2Int _targetPosGrid;
     private Animator m_anim;
+    
 
     [SerializeField] private Grid _grid;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -72,10 +77,11 @@ public class Player : MonoBehaviour
     bool canMoveTo(Vector2Int a_gridPos) {
         _targetTile = _grid.GetTile(a_gridPos);
         Debug.Log(_targetTile.BaseCost);
-        if (IsOre(_targetPosGrid))
+        if (IsOre(a_gridPos))
         {
             Debug.Log("Is ore");
             m_anim.SetTrigger("Mine");
+            replaceOre(a_gridPos);
         }
         return (_targetTile.BaseCost == 0) ? false : true;
     }
@@ -87,4 +93,22 @@ public class Player : MonoBehaviour
         
     }
 
+    void replaceOre(Vector2Int a_gridPos)
+    {
+        List<Tile> t_Tiles = _grid.GetComponentsInChildren<Tile>().ToList();
+        Tile t_OldTile = t_Tiles.FirstOrDefault(t => a_gridPos == _grid.WorldToGrid(t.transform.position));
+        if (t_OldTile)
+        {
+            //Undo.DestroyObjectImmediate(t_OldTile.gameObject);
+            Destroy(t_OldTile);
+        }
+        /*
+        GameObject t_NewTile = (GameObject)PrefabUtility.InstantiatePrefab(Tile_Wall, _grid.transform);
+        Undo.RegisterCreatedObjectUndo(t_NewTile, "Tile created");
+        t_NewTile.transform.position = _grid.GridToWorld(a_gridPos);
+        Sprite t_Sprite = t_NewTile.GetComponent<SpriteRenderer>().sprite;
+        float t_NewScale = _grid.CellSize / t_Sprite.bounds.size.x;
+        t_NewTile.transform.localScale = new Vector3(t_NewScale, t_NewScale, t_NewScale);
+        */
+    }
 }
