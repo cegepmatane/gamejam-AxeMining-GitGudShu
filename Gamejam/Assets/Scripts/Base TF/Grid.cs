@@ -9,8 +9,7 @@ public class Grid : MonoBehaviour
     public uint RowCount = 10;
     public uint ColumnCount = 10;
     public Color GridColor = Color.white;
-
-    private List<Tile> m_Tiles;
+    public List<Tile> tiles;
 
 #if UNITY_EDITOR
     [Space]
@@ -22,9 +21,9 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
-        m_Tiles = GetComponentsInChildren<Tile>().ToList();
+        tiles = GetComponentsInChildren<Tile>().ToList();
 
-        foreach(Tile t_Tile in m_Tiles)
+        foreach(Tile t_Tile in tiles)
         {
             Vector2Int t_GridPos = WorldToGrid(t_Tile.transform.position);
             t_Tile.x = (uint)t_GridPos.x;
@@ -86,6 +85,6 @@ public class Grid : MonoBehaviour
 
     public Tile GetTile(Vector2Int a_GridPos)
     {
-        return m_Tiles.FirstOrDefault(t => t.x == a_GridPos.x && t.y == a_GridPos.y);
+        return tiles.FirstOrDefault(t => t.x == a_GridPos.x && t.y == a_GridPos.y);
     }
 }
