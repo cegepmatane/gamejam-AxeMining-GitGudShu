@@ -10,11 +10,13 @@ public class Ennemy : MonoBehaviour
     public Grid Grid;
     public Transform Objective;
     public bool canMove = false;
+
     private Path m_Path;
-    //private Tile _nextTile;
+    private Animator m_Anim;
+
     void Start()
     {
-
+        m_Anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -52,6 +54,8 @@ public class Ennemy : MonoBehaviour
 
                 if (m_Path.Checkpoints.Count == 1)
                 {
+                    m_Anim.SetTrigger("Explode");
+                    StartCoroutine(WaitBeforeDestruction());
                     Destroy(gameObject);
                 }
             }
@@ -62,10 +66,8 @@ public class Ennemy : MonoBehaviour
             CalculatePath();
             canMove = true;
         }
-        
 
-        
-
+        m_Anim.SetBool("isMoving", canMove);
     }
 
     public void SetPath(Path a_Path)
@@ -93,5 +95,10 @@ public class Ennemy : MonoBehaviour
         {
             Gizmos.DrawLine(m_Path.Checkpoints[i].transform.position, m_Path.Checkpoints[i + 1].transform.position);
         }
+    }
+
+    IEnumerator WaitBeforeDestruction()
+    {
+        yield return new WaitForSeconds(2.0f);
     }
 }
