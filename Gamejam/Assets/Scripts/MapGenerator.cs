@@ -12,7 +12,7 @@ public class MapGenerator : MonoBehaviour
     public int chanceOfGround = 4;
     public int oreAmount = 10;
 
-    private enum TILES { GROUND, WALL, ORE}
+    private enum TILES { GROUND, WALL, ORE, STAIRS}
     private TILES[,] _tiles;
     private Vector2Int[] _directions = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
 
@@ -20,8 +20,9 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private GameObject _groundTile;
     [SerializeField] private GameObject _wallTile;
     [SerializeField] private GameObject _oreTile;
+    [SerializeField] private GameObject _stairsTile;
     [SerializeField] private GameObject _miner;
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class MapGenerator : MonoBehaviour
 
         GenerateGroundAround(t_spawnPosX, t_spawnPosY, true);
         GenerateOres();
+        GenerateStairs();
         PlaceTiles();
 
         GameObject t_miner = Instantiate(_miner);
@@ -123,6 +125,21 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    void GenerateStairs()
+    {
+        bool t_findGoodTile = false;
+        do
+        {
+            int t_x =(int)Random.Range(1, _grid.ColumnCount);
+            int t_y = (int)Random.Range(1, _grid.RowCount);
+            if(_tiles[t_x,t_y] == TILES.GROUND)
+            {
+                _tiles[t_x, t_y] = TILES.STAIRS;
+                t_findGoodTile = true;
+            }
+        } while (!t_findGoodTile);
+    }
+
     void PlaceTiles() {
         for (int x = 0; x < _grid.ColumnCount; x++) {
             for (int y = 0; y < _grid.RowCount; y++) {
@@ -135,6 +152,9 @@ public class MapGenerator : MonoBehaviour
                         break;
                     case TILES.ORE:
                         PlaceTile(_oreTile, x, y);
+                        break;
+                    case TILES.STAIRS:
+                        PlaceTile(_stairsTile, x, y);
                         break;
                     default:
                         break;
