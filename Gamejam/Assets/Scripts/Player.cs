@@ -99,16 +99,15 @@ public class Player : MonoBehaviour
         Tile t_OldTile = t_Tiles.FirstOrDefault(t => a_gridPos == _grid.WorldToGrid(t.transform.position));
         if (t_OldTile)
         {
-            //Undo.DestroyObjectImmediate(t_OldTile.gameObject);
-            Destroy(t_OldTile);
+            Debug.Log(t_OldTile.name);
+            Destroy(t_OldTile.gameObject);
         }
-        /*
-        GameObject t_NewTile = (GameObject)PrefabUtility.InstantiatePrefab(Tile_Wall, _grid.transform);
-        Undo.RegisterCreatedObjectUndo(t_NewTile, "Tile created");
+        
+        GameObject t_NewTile = Instantiate(Tile_Wall, _grid.transform);
         t_NewTile.transform.position = _grid.GridToWorld(a_gridPos);
         Sprite t_Sprite = t_NewTile.GetComponent<SpriteRenderer>().sprite;
         float t_NewScale = _grid.CellSize / t_Sprite.bounds.size.x;
         t_NewTile.transform.localScale = new Vector3(t_NewScale, t_NewScale, t_NewScale);
-        */
+        
     }
 }
