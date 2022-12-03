@@ -20,6 +20,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private GameObject _groundTile;
     [SerializeField] private GameObject _wallTile;
     [SerializeField] private GameObject _oreTile;
+    [SerializeField] private GameObject _miner;
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,10 @@ public class MapGenerator : MonoBehaviour
         GenerateGroundAround(t_spawnPosX, t_spawnPosY, true);
         GenerateOres();
         PlaceTiles();
+
+        GameObject t_miner = Instantiate(_miner);
+        t_miner.GetComponent<Player>().grid = _grid;
+        t_miner.transform.position = _grid.GridToWorld(new Vector2Int(t_spawnPosX, t_spawnPosY));
     }
 
     void PlaceTile(GameObject a_tile, int a_x, int a_y) {
