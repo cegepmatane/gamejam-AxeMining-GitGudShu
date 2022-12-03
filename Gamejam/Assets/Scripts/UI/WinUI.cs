@@ -9,12 +9,12 @@ public class WinUI : MonoBehaviour
 
     private void OnEnable()
     {
-        //Knight.onWin += EnableWinMenu;
+        Player.onWin += EnableWinMenu;
     }
 
     private void OnDisable()
     {
-        //Knight.onWin -= EnableWinMenu;
+        Player.onWin -= EnableWinMenu;
     }
     public void EnableWinMenu()
     {

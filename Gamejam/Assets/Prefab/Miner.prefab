@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8174874184418654335}
   - component: {fileID: 8174874184418654328}
   - component: {fileID: 8174874184418654329}
+  - component: {fileID: -5784276743026877126}
   m_Layer: 0
   m_Name: Miner
   m_TagString: Untagged
@@ -122,3 +123,31 @@ MonoBehaviour:
   isMoving: 0
   Tile_Wall: {fileID: 1559795851569715833, guid: 4e4a5b1282cd1904fbfe4afd72e93bd4, type: 3}
   grid: {fileID: 0}
+  oreText: {fileID: 0}
+  scoreText: {fileID: 0}
+--- !u!61 &-5784276743026877126
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8174874184418654330}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.06297672, y: 0.16662699}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.375, y: 0.36842105}
+    oldSize: {x: 1.5, y: 1.1875}
+    newSize: {x: 1.5, y: 1.1875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.46230578, y: 0.4196061}
+  m_EdgeRadius: 0
