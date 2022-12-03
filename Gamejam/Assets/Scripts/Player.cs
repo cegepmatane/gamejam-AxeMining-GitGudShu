@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
+    public static event Action OnPlayerDeath;
+    public static event Action onWin;
+
     public float speed = 5;
     public bool isMoving = false;
     //public int actionCounter = 0;
@@ -14,15 +19,29 @@ public class Player : MonoBehaviour
     public GameObject Tile_Wall;
     public Grid grid;
 
+    private int ores = 0;
     private Vector3 _targetPos;
     private Vector3 _direction;
     private Vector3 _mouvement;
     private Tile _targetTile;
     private Vector2Int _targetPosGrid;
     private Animator m_anim;
-    
 
-    
+    [SerializeField] private TextMeshProUGUI oreText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+
+    private void OnEnable()
+    {
+        OnPlayerDeath += DisablePlayerMovement;
+        onWin += DisablePlayerMovement;
+    }
+
+    private void OnDisable()
+    {
+        OnPlayerDeath -= DisablePlayerMovement;
+        onWin -= DisablePlayerMovement;
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +72,7 @@ public class Player : MonoBehaviour
                     isMoving = true;
                 }
             }
+            m_anim.SetBool("isMoving", isMoving);
         }
         else {
             MoveTo(_targetPos);
@@ -70,7 +90,6 @@ public class Player : MonoBehaviour
         else {
             transform.position += _mouvement;
         }
-        m_anim.SetBool("isMoving",isMoving);
     }
 
     bool canMoveTo(Vector2Int a_gridPos) {
@@ -80,6 +99,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Is ore");
             m_anim.SetTrigger("Mine");
+            getOre();
             replaceOre(_targetPosGrid);
         }
         return (_targetTile.BaseCost == 0) ? false : true;
@@ -108,5 +128,30 @@ public class Player : MonoBehaviour
         float t_NewScale = grid.CellSize / t_Sprite.bounds.size.x;
         t_NewTile.transform.localScale = new Vector3(t_NewScale, t_NewScale, t_NewScale);
         grid.tiles = grid.GetComponentsInChildren<Tile>().ToList();
+    }
+
+    void getOre()
+    {
+        ores++;
+        oreText.text = "x" + ores;
+        scoreText.text = "x" + ores;
+    }
+
+    private void DisablePlayerMovement()
+    {
+        m_anim.enabled = false;
+        Time.timeScale = 0;
+    }
+
+    public void Win()
+    {
+        onWin?.Invoke();
+    }
+
+    public void Kill()
+    {
+        Debug.Log("Player dead");
+        m_anim.SetTrigger("Dead");
+        OnPlayerDeath?.Invoke();
     }
 }

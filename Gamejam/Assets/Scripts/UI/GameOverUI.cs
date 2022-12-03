@@ -9,12 +9,12 @@ public class GameOverUI : MonoBehaviour
 
     private void OnEnable()
     {
-        //Knight.OnPlayerDeath += EnableGameOverMenu;
+        Player.OnPlayerDeath += EnableGameOverMenu;
     }
 
     private void OnDisable()
     {
-        //Knight.OnPlayerDeath -= EnableGameOverMenu;
+        Player.OnPlayerDeath -= EnableGameOverMenu;
     }
     public void EnableGameOverMenu()
     {
