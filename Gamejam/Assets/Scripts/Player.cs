@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
     void replaceOre(Vector2Int a_gridPos)
     {
         //List<Tile> t_Tiles = _grid.GetComponentsInChildren<Tile>().ToList();
-        Tile t_OldTile = _grid.tiles.FirstOrDefault(t => a_gridPos == _grid.WorldToGrid(t.transform.position));
+        Tile t_OldTile = grid.tiles.FirstOrDefault(t => a_gridPos == grid.WorldToGrid(t.transform.position));
         if (t_OldTile)
         {
             Debug.Log(t_OldTile.name);
@@ -107,6 +107,6 @@ public class Player : MonoBehaviour
         Sprite t_Sprite = t_NewTile.GetComponent<SpriteRenderer>().sprite;
         float t_NewScale = grid.CellSize / t_Sprite.bounds.size.x;
         t_NewTile.transform.localScale = new Vector3(t_NewScale, t_NewScale, t_NewScale);
-        _grid.tiles = _grid.GetComponentsInChildren<Tile>().ToList();
+        grid.tiles = grid.GetComponentsInChildren<Tile>().ToList();
     }
 }

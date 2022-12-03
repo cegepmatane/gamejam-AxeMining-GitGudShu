@@ -120,4 +120,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   isMoving: 0
-  _grid: {fileID: 0}
+  Tile_Wall: {fileID: 1559795851569715833, guid: 4e4a5b1282cd1904fbfe4afd72e93bd4, type: 3}
+  grid: {fileID: 0}
