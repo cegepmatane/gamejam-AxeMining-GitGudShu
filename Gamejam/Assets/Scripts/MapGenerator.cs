@@ -124,7 +124,7 @@ public class MapGenerator : MonoBehaviour
             t_validTiles.Remove(t_tile);
         }
     }
-
+    //test
     void GenerateStairs()
     {
         bool t_findGoodTile = false;
