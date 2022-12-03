@@ -3,13 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Ore
-<<<<<<< HEAD
-  - Stairs
-=======
-  - Enemy
->>>>>>> 0b7acf466109a4d706b55f15c16f29ab791d8ac8
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -17,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Enemy
+  - 
   - 
   - 
   - 

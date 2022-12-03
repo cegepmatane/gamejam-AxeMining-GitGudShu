@@ -29,18 +29,17 @@ public class MapGenerator : MonoBehaviour
     {
         _grid.RowCount = (uint)Random.Range(minRow, maxRow);
         _grid.ColumnCount = (uint)Random.Range(minCol, maxCol);
-        _tiles = new TILES[_grid.ColumnCount, _grid.RowCount];
+        _tiles = new TILES[_grid.RowCount, _grid.ColumnCount];
 
-
-        for (int x = 0; x < _grid.ColumnCount; x++) {
-            for (int y = 0; y < _grid.RowCount; y++) {
-                _tiles[x, y] = TILES.WALL;
+        for (int y = 0; y < _grid.RowCount; y++) {
+            for (int x = 0; x < _grid.ColumnCount; x++) {
+                _tiles[y, x] = TILES.WALL;
             }
         }
 
         int t_spawnPosX = Random.Range(1, (int)_grid.ColumnCount - 1);
         int t_spawnPosY = Random.Range(1, (int)_grid.RowCount - 1);
-        _tiles[t_spawnPosX, t_spawnPosY] = TILES.GROUND;
+        _tiles[t_spawnPosY, t_spawnPosX] = TILES.GROUND;
 
         GenerateGroundAround(t_spawnPosX, t_spawnPosY, true);
         GenerateOres();
@@ -61,7 +60,7 @@ public class MapGenerator : MonoBehaviour
         float t_newScale = _grid.CellSize / t_sprite.bounds.size.x;
         t_newTile.transform.localScale = new Vector3(t_newScale, t_newScale, t_newScale);
 
-        Tile t_tile = a_tile.GetComponent<Tile>();
+        Tile t_tile = t_newTile.GetComponent<Tile>();
         t_tile.x = (uint)a_x;
         t_tile.y = (uint)a_y;
     }
@@ -73,15 +72,15 @@ public class MapGenerator : MonoBehaviour
             int t_x = a_x + t_direction.x;
             int t_y = a_y + t_direction.y;
 
-            if (_tiles[t_x, t_y] == TILES.WALL && t_x != 0 && t_x != _grid.ColumnCount - 1 && t_y != 0 && t_y != _grid.RowCount - 1) {
-                if (((t_direction == Vector2Int.up || t_direction == Vector2Int.down) && _tiles[t_x - 1, t_y] == TILES.WALL && _tiles[t_x + 1, t_y] == TILES.WALL) || ((t_direction == Vector2Int.left || t_direction == Vector2Int.right) && _tiles[t_x, t_y - 1] == TILES.WALL && _tiles[t_x, t_y + 1] == TILES.WALL))
+            if (_tiles[t_y, t_x] == TILES.WALL && t_x != 0 && t_x != _grid.ColumnCount - 1 && t_y != 0 && t_y != _grid.RowCount - 1) {
+                if (((t_direction == Vector2Int.up || t_direction == Vector2Int.down) && _tiles[t_y, t_x - 1] == TILES.WALL && _tiles[t_y, t_x + 1] == TILES.WALL) || ((t_direction == Vector2Int.left || t_direction == Vector2Int.right) && _tiles[t_y - 1, t_x] == TILES.WALL && _tiles[t_y +1, t_x] == TILES.WALL))
                     t_validTiles.Add(new Vector2Int(t_x, t_y));
             }
         }
 
         foreach (Vector2Int tile in t_validTiles) {
             if (Random.Range(1, chanceOfGround) == 1) {
-                _tiles[tile.x, tile.y] = TILES.GROUND;
+                _tiles[tile.y, tile.x] = TILES.GROUND;
                 GenerateGroundAround(tile.x, tile.y);
                 t_isGroundPlace = true;
             }
@@ -89,12 +88,12 @@ public class MapGenerator : MonoBehaviour
 
         if (!t_isGroundPlace && t_validTiles.Count != 0) {
             Vector2Int t_tile = t_validTiles[Random.Range(0, t_validTiles.Count - 1)];
-            _tiles[t_tile.x, t_tile.y] = TILES.GROUND;
+            _tiles[t_tile.y, t_tile.x] = TILES.GROUND;
             GenerateGroundAround(t_tile.x, t_tile.y);
             if (a_isFirstGen) { 
                 t_validTiles.Remove(t_tile);
                 t_tile = t_validTiles[Random.Range(0, t_validTiles.Count - 1)];
-                _tiles[t_tile.x, t_tile.y] = TILES.GROUND;
+                _tiles[t_tile.y, t_tile.x] = TILES.GROUND;
                 GenerateGroundAround(t_tile.x, t_tile.y);
             }
         }
@@ -102,14 +101,14 @@ public class MapGenerator : MonoBehaviour
 
     void GenerateOres() {
         List<Vector2Int> t_validTiles = new List<Vector2Int>();
-        for (int x = 0; x < _grid.ColumnCount; x++) {
-            for (int y = 0; y < _grid.RowCount; y++) {
-                if (_tiles[x, y] == TILES.WALL) {
+        for (int y = 0; y < _grid.RowCount; y++) {
+            for (int x = 0; x < _grid.ColumnCount; x++) {
+                if (_tiles[y, x] == TILES.WALL) {
                     foreach (Vector2Int t_direction in _directions) {
                         int t_x = x + t_direction.x;
                         int t_y = y + t_direction.y;
                         if (t_x >= 0 && t_x < _grid.ColumnCount && t_y >= 0 && t_y < _grid.RowCount) {
-                            if (_tiles[t_x, t_y] == TILES.GROUND) {
+                            if (_tiles[t_y, t_x] == TILES.GROUND) {
                                 t_validTiles.Add(new Vector2Int(x, y));
                             }
                         }
@@ -120,11 +119,10 @@ public class MapGenerator : MonoBehaviour
 
         for (int i = 0; i < oreAmount; i++) {
             Vector2Int t_tile = t_validTiles[Random.Range(0, t_validTiles.Count - 1)];
-            _tiles[t_tile.x, t_tile.y] = TILES.ORE;
+            _tiles[t_tile.y, t_tile.x] = TILES.ORE;
             t_validTiles.Remove(t_tile);
         }
     }
-    //test
     void GenerateStairs()
     {
         bool t_findGoodTile = false;
@@ -132,18 +130,18 @@ public class MapGenerator : MonoBehaviour
         {
             int t_x =(int)Random.Range(1, _grid.ColumnCount);
             int t_y = (int)Random.Range(1, _grid.RowCount);
-            if(_tiles[t_x,t_y] == TILES.GROUND)
+            if(_tiles[t_y, t_x] == TILES.GROUND)
             {
-                _tiles[t_x, t_y] = TILES.STAIRS;
+                _tiles[t_y, t_x] = TILES.STAIRS;
                 t_findGoodTile = true;
             }
         } while (!t_findGoodTile);
     }
 
     void PlaceTiles() {
-        for (int x = 0; x < _grid.ColumnCount; x++) {
-            for (int y = 0; y < _grid.RowCount; y++) {
-                switch (_tiles[x, y]) {
+        for (int y = 0; y < _grid.RowCount; y++) {
+            for (int x = 0; x < _grid.ColumnCount; x++) {
+                switch (_tiles[y, x]) {
                     case TILES.WALL:
                         PlaceTile(_wallTile, x, y);
                         break;

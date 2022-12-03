@@ -406,6 +406,7 @@ MonoBehaviour:
   _groundTile: {fileID: 3882874166843239434, guid: 5ef261b1c5e23874983ee8de73515a8b, type: 3}
   _wallTile: {fileID: 1559795851569715833, guid: 4e4a5b1282cd1904fbfe4afd72e93bd4, type: 3}
   _oreTile: {fileID: 1559795851569715833, guid: ec22534ef50162f49984593ed3c5ccfa, type: 3}
+  _stairsTile: {fileID: 3882874166843239434, guid: 991cccff0e3a1604991564f4db846780, type: 3}
   _miner: {fileID: 8174874184418654330, guid: 330e91617d4b7f644aa6916e2d61d2e1, type: 3}
 --- !u!1 &1276288214
 GameObject:
