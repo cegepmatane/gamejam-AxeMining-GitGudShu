@@ -51,13 +51,6 @@ public class Ennemy : MonoBehaviour
                 CalculatePath();
                 canMove = false;
                 if (m_Path == null) return;
-
-                if (m_Path.Checkpoints.Count == 1)
-                {
-                    m_Anim.SetTrigger("Explode");
-                    StartCoroutine(WaitBeforeDestruction());
-                    Destroy(gameObject);
-                }
             }
         }
         if(Player.time % nbActionToMove == 0 && !canMove)
@@ -97,8 +90,9 @@ public class Ennemy : MonoBehaviour
         }
     }
 
-    IEnumerator WaitBeforeDestruction()
+    public void Explodes()
     {
-        yield return new WaitForSeconds(2.0f);
+        Destroy(gameObject);
     }
+
 }

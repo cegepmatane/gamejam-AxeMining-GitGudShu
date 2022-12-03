@@ -136,6 +136,16 @@ public class Player : MonoBehaviour
         oreText.text = "x" + ores;
         scoreText.text = "x" + ores;
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("DIES");
+            Animator t_enemyAnim = GameObject.Find("Enemy").GetComponent<Ennemy>().GetComponent<Animator>();
+            t_enemyAnim.SetTrigger("Explode");
+            m_anim.SetTrigger("Dead");
+        }
+    }
 
     private void DisablePlayerMovement()
     {
@@ -151,7 +161,6 @@ public class Player : MonoBehaviour
     public void Kill()
     {
         Debug.Log("Player dead");
-        m_anim.SetTrigger("Dead");
         OnPlayerDeath?.Invoke();
     }
 }
