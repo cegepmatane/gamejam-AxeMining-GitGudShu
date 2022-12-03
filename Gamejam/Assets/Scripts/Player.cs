@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
                     isMoving = true;
                 }
             }
+            m_anim.SetBool("isMoving", isMoving);
         }
         else {
             MoveTo(_targetPos);
@@ -89,7 +90,6 @@ public class Player : MonoBehaviour
         else {
             transform.position += _mouvement;
         }
-        m_anim.SetBool("isMoving",isMoving);
     }
 
     bool canMoveTo(Vector2Int a_gridPos) {
