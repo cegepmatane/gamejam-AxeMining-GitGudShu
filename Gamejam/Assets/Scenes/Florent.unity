@@ -400,6 +400,7 @@ MonoBehaviour:
   maxRow: 20
   minCol: 10
   maxCol: 20
+  chanceOfGround: 4
   _grid: {fileID: 1276288217}
   _groundTile: {fileID: 3882874166843239434, guid: 5ef261b1c5e23874983ee8de73515a8b, type: 3}
   _wallTile: {fileID: 1559795851569715833, guid: 4e4a5b1282cd1904fbfe4afd72e93bd4, type: 3}
