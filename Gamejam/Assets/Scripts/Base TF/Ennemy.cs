@@ -7,7 +7,7 @@ public class Ennemy : MonoBehaviour
     public float Speed = 10f;
     public int nbActionToMove = 3;
     public Pathfinder Pathfinder;
-    public Grid Grid;
+    public Grid grid;
     public Transform Objective;
     public bool canMove = false;
 
@@ -17,6 +17,7 @@ public class Ennemy : MonoBehaviour
     void Start()
     {
         m_Anim = GetComponent<Animator>();
+        transform.position = grid.GridToWorld(grid.WorldToGrid(transform.position));
     }
 
     // Update is called once per frame
@@ -78,8 +79,8 @@ public class Ennemy : MonoBehaviour
 
     private void CalculatePath()
     {
-        Tile t_StartTile = Grid.GetTile(Grid.WorldToGrid(transform.position));
-        Tile t_EndTile = Grid.GetTile(Grid.WorldToGrid(Objective.position));
+        Tile t_StartTile = grid.GetTile(grid.WorldToGrid(transform.position));
+        Tile t_EndTile = grid.GetTile(grid.WorldToGrid(Objective.position));
 
         m_Path = Pathfinder.GetPath(t_StartTile, t_EndTile, false);
     }

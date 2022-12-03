@@ -402,12 +402,14 @@ MonoBehaviour:
   maxCol: 20
   chanceOfGround: 5
   oreAmount: 10
+  ennemyAmount: 4
   _grid: {fileID: 1276288217}
   _groundTile: {fileID: 3882874166843239434, guid: 5ef261b1c5e23874983ee8de73515a8b, type: 3}
   _wallTile: {fileID: 1559795851569715833, guid: 4e4a5b1282cd1904fbfe4afd72e93bd4, type: 3}
   _oreTile: {fileID: 1559795851569715833, guid: ec22534ef50162f49984593ed3c5ccfa, type: 3}
   _stairsTile: {fileID: 3882874166843239434, guid: 991cccff0e3a1604991564f4db846780, type: 3}
   _miner: {fileID: 8174874184418654330, guid: 330e91617d4b7f644aa6916e2d61d2e1, type: 3}
+  _bomb: {fileID: 1310735508194749834, guid: bbffc7e80e187124d856ff61070f2949, type: 3}
 --- !u!1 &1276288214
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1276288216}
   - component: {fileID: 1276288217}
+  - component: {fileID: 1276288218}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -461,3 +464,15 @@ MonoBehaviour:
   - {fileID: 3882874166843239434, guid: 5ef261b1c5e23874983ee8de73515a8b, type: 3}
   - {fileID: 1559795851569715833, guid: 4e4a5b1282cd1904fbfe4afd72e93bd4, type: 3}
   SelectedTile: 1
+--- !u!114 &1276288218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276288214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14bc654e109ff4043b4c835760739fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
