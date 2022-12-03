@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public static int actionPerTurn = 3;
     public static int time = 0;
     public GameObject Tile_Wall;
+    public Grid grid;
 
     private Vector3 _targetPos;
     private Vector3 _direction;
@@ -21,13 +22,12 @@ public class Player : MonoBehaviour
     private Animator m_anim;
     
 
-    [SerializeField] private Grid _grid;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = _grid.GridToWorld(_grid.WorldToGrid(transform.position));
+        transform.position = grid.GridToWorld(grid.WorldToGrid(transform.position));
         _targetPos = transform.position;
         m_anim = GetComponent<Animator>();
     }
@@ -37,19 +37,19 @@ public class Player : MonoBehaviour
     {
         if (!isMoving) {
             if (Input.GetAxisRaw("Vertical") != 0) {
-                _targetPosGrid = _grid.WorldToGrid(new Vector3(transform.position.x, transform.position.y + Input.GetAxisRaw("Vertical") * _grid.CellSize));
+                _targetPosGrid = grid.WorldToGrid(new Vector3(transform.position.x, transform.position.y + Input.GetAxisRaw("Vertical") * grid.CellSize));
                 if (canMoveTo(_targetPosGrid)) {
                     time++;
-                    _targetPos = _grid.GridToWorld(_targetPosGrid);
+                    _targetPos = grid.GridToWorld(_targetPosGrid);
                     isMoving = true;
                 }
             }
             else if (Input.GetAxisRaw("Horizontal") != 0) {
-                _targetPosGrid = _grid.WorldToGrid(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal") * _grid.CellSize, transform.position.y));
+                _targetPosGrid = grid.WorldToGrid(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal") * grid.CellSize, transform.position.y));
                 if (canMoveTo(_targetPosGrid)) {
                     
                     time++;
-                    _targetPos = _grid.GridToWorld(_targetPosGrid);
+                    _targetPos = grid.GridToWorld(_targetPosGrid);
                     isMoving = true;
                 }
             }
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     }
 
     bool canMoveTo(Vector2Int a_gridPos) {
-        _targetTile = _grid.GetTile(a_gridPos);
+        _targetTile = grid.GetTile(a_gridPos);
         Debug.Log(_targetTile.BaseCost);
         if (IsOre(_targetPosGrid))
         {
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
 
     bool IsOre(Vector2Int a_gridPos)
     {
-        _targetTile = _grid.GetTile(a_gridPos);
+        _targetTile = grid.GetTile(a_gridPos);
         return _targetTile.CompareTag("Ore");
         
     }
@@ -102,10 +102,10 @@ public class Player : MonoBehaviour
             Destroy(t_OldTile.gameObject);
         }
         
-        GameObject t_NewTile = Instantiate(Tile_Wall, _grid.transform);
-        t_NewTile.transform.position = _grid.GridToWorld(a_gridPos);
+        GameObject t_NewTile = Instantiate(Tile_Wall, grid.transform);
+        t_NewTile.transform.position = grid.GridToWorld(a_gridPos);
         Sprite t_Sprite = t_NewTile.GetComponent<SpriteRenderer>().sprite;
-        float t_NewScale = _grid.CellSize / t_Sprite.bounds.size.x;
+        float t_NewScale = grid.CellSize / t_Sprite.bounds.size.x;
         t_NewTile.transform.localScale = new Vector3(t_NewScale, t_NewScale, t_NewScale);
         _grid.tiles = _grid.GetComponentsInChildren<Tile>().ToList();
     }
