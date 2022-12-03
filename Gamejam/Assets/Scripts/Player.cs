@@ -39,12 +39,6 @@ public class Player : MonoBehaviour
             if (Input.GetAxisRaw("Vertical") != 0) {
                 _targetPosGrid = _grid.WorldToGrid(new Vector3(transform.position.x, transform.position.y + Input.GetAxisRaw("Vertical") * _grid.CellSize));
                 if (canMoveTo(_targetPosGrid)) {
-                    if (IsOre(_targetPosGrid))
-                    {
-                        Debug.Log("Is ore");
-                        m_anim.SetTrigger("Mine");
-                        replaceOre(_targetPosGrid);
-                    }
                     time++;
                     _targetPos = _grid.GridToWorld(_targetPosGrid);
                     isMoving = true;
@@ -53,12 +47,7 @@ public class Player : MonoBehaviour
             else if (Input.GetAxisRaw("Horizontal") != 0) {
                 _targetPosGrid = _grid.WorldToGrid(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal") * _grid.CellSize, transform.position.y));
                 if (canMoveTo(_targetPosGrid)) {
-                    if (IsOre(_targetPosGrid))
-                    {
-                        Debug.Log("Is ore");
-                        m_anim.SetTrigger("Mine");
-                        replaceOre(_targetPosGrid);
-                    }
+                    
                     time++;
                     _targetPos = _grid.GridToWorld(_targetPosGrid);
                     isMoving = true;
@@ -87,7 +76,13 @@ public class Player : MonoBehaviour
     bool canMoveTo(Vector2Int a_gridPos) {
         _targetTile = _grid.GetTile(a_gridPos);
         Debug.Log(_targetTile.BaseCost);
-        return (_targetTile.BaseCost == 0 || _targetTile.CompareTag("Ore")) ? false : true;
+        if (IsOre(_targetPosGrid))
+        {
+            Debug.Log("Is ore");
+            m_anim.SetTrigger("Mine");
+            replaceOre(_targetPosGrid);
+        }
+        return (_targetTile.BaseCost == 0) ? false : true;
     }
 
     bool IsOre(Vector2Int a_gridPos)
@@ -99,8 +94,8 @@ public class Player : MonoBehaviour
 
     void replaceOre(Vector2Int a_gridPos)
     {
-        List<Tile> t_Tiles = _grid.GetComponentsInChildren<Tile>().ToList();
-        Tile t_OldTile = t_Tiles.FirstOrDefault(t => a_gridPos == _grid.WorldToGrid(t.transform.position));
+        //List<Tile> t_Tiles = _grid.GetComponentsInChildren<Tile>().ToList();
+        Tile t_OldTile = _grid.tiles.FirstOrDefault(t => a_gridPos == _grid.WorldToGrid(t.transform.position));
         if (t_OldTile)
         {
             Debug.Log(t_OldTile.name);
@@ -112,6 +107,6 @@ public class Player : MonoBehaviour
         Sprite t_Sprite = t_NewTile.GetComponent<SpriteRenderer>().sprite;
         float t_NewScale = _grid.CellSize / t_Sprite.bounds.size.x;
         t_NewTile.transform.localScale = new Vector3(t_NewScale, t_NewScale, t_NewScale);
-        
+        _grid.tiles = _grid.GetComponentsInChildren<Tile>().ToList();
     }
 }
