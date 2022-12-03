@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     private Vector3 _targetPos;
     private Vector3 _direction;
     private Vector3 _mouvement;
+    private Tile _targetTile;
+    private Vector2Int _targetPosGrid;
 
     [SerializeField] private Grid _grid;
 
@@ -17,20 +19,29 @@ public class Player : MonoBehaviour
     void Start()
     {
         transform.position = _grid.GridToWorld(_grid.WorldToGrid(transform.position));
+        _targetPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxisRaw("Vertical") != 0 && !isMoving /*direction != DIRECTIONS.NULL*/) {
-            _targetPos = _grid.GridToWorld(_grid.WorldToGrid(new Vector3(transform.position.x, transform.position.y + Input.GetAxisRaw("Vertical") * _grid.CellSize)));
-            isMoving = true;
-        }else if (Input.GetAxisRaw("Horizontal") != 0 && !isMoving) {
-            _targetPos = _grid.GridToWorld(_grid.WorldToGrid(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal") * _grid.CellSize, transform.position.y)));
-            isMoving = true;
+        if (!isMoving) {
+            if (Input.GetAxisRaw("Vertical") != 0) {
+                _targetPosGrid = _grid.WorldToGrid(new Vector3(transform.position.x, transform.position.y + Input.GetAxisRaw("Vertical") * _grid.CellSize));
+                if (canMoveTo(_targetPosGrid)) {
+                    _targetPos = _grid.GridToWorld(_targetPosGrid);
+                    isMoving = true;
+                }
+            }
+            else if (Input.GetAxisRaw("Horizontal") != 0) {
+                _targetPosGrid = _grid.WorldToGrid(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal") * _grid.CellSize, transform.position.y));
+                if (canMoveTo(_targetPosGrid)) {
+                    _targetPos = _grid.GridToWorld(_targetPosGrid);
+                    isMoving = true;
+                }
+            }
         }
-
-        if (isMoving) {
+        else {
             MoveTo(_targetPos);
         }
     }
@@ -46,4 +57,11 @@ public class Player : MonoBehaviour
             transform.position += _mouvement;
         }
     }
+
+    bool canMoveTo(Vector2Int a_gridPos) {
+        _targetTile = _grid.GetTile(a_gridPos);
+        Debug.Log(_targetTile.BaseCost);
+        return (_targetTile.BaseCost == 0) ? false : true;
+    }
+
 }
