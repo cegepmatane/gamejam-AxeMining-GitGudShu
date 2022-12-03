@@ -6,6 +6,9 @@ public class Player : MonoBehaviour
 {
     public float speed = 5;
     public bool isMoving = false;
+    //public int actionCounter = 0;
+    public static int actionPerTurn = 3;
+    public static int time = 0;
 
     private Vector3 _targetPos;
     private Vector3 _direction;
@@ -29,6 +32,7 @@ public class Player : MonoBehaviour
             if (Input.GetAxisRaw("Vertical") != 0) {
                 _targetPosGrid = _grid.WorldToGrid(new Vector3(transform.position.x, transform.position.y + Input.GetAxisRaw("Vertical") * _grid.CellSize));
                 if (canMoveTo(_targetPosGrid)) {
+                    time++;
                     _targetPos = _grid.GridToWorld(_targetPosGrid);
                     isMoving = true;
                 }
@@ -36,6 +40,7 @@ public class Player : MonoBehaviour
             else if (Input.GetAxisRaw("Horizontal") != 0) {
                 _targetPosGrid = _grid.WorldToGrid(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal") * _grid.CellSize, transform.position.y));
                 if (canMoveTo(_targetPosGrid)) {
+                    time++;
                     _targetPos = _grid.GridToWorld(_targetPosGrid);
                     isMoving = true;
                 }
@@ -47,6 +52,7 @@ public class Player : MonoBehaviour
     }
 
     void MoveTo(Vector3 a_targetPos) {
+        
         _direction = a_targetPos - transform.position;
         _mouvement = _direction.normalized * speed * Time.deltaTime;
         if (_mouvement.magnitude >= _direction.magnitude) {

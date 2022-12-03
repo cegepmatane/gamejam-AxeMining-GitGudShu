@@ -61,7 +61,7 @@ public class Pathfinder : MonoBehaviour
         }
 
         List<Node> t_openList = new List<Node>();
-        List<Node> t_closedList = new List<Node>();    
+        List<Node> t_closedList = new List<Node>();
 
         Node t_StartNode = m_nodes[a_StartPoint.x, a_StartPoint.y];
         Node t_EndNode = m_nodes[a_EndTile.x, a_EndTile.y];
@@ -90,7 +90,7 @@ public class Pathfinder : MonoBehaviour
                 uint t_NeighbourCost = 10u;
 
                 // If diagonale
-                if(t_Neighbour.Tile.x != t_CurrentNode.Tile.x && t_Neighbour.Tile.y != t_CurrentNode.Tile.y)
+                if (t_Neighbour.Tile.x != t_CurrentNode.Tile.x && t_Neighbour.Tile.y != t_CurrentNode.Tile.y)
                 {
                     if (!a_DiagonalAllowed)
                         continue;
