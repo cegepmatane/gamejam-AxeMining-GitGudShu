@@ -112,7 +112,7 @@ TextureImporter:
         width: 24
         height: 19
       alignment: 9
-      pivot: {x: 0.5, y: 0.36842105}
+      pivot: {x: 0.375, y: 0.36842105}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -133,7 +133,7 @@ TextureImporter:
         width: 26
         height: 17
       alignment: 9
-      pivot: {x: 0.5, y: 0.4117647}
+      pivot: {x: 0.3846154, y: 0.4117647}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -154,7 +154,7 @@ TextureImporter:
         width: 24
         height: 18
       alignment: 9
-      pivot: {x: 0.5, y: 0.3888889}
+      pivot: {x: 0.375, y: 0.3888889}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -175,7 +175,7 @@ TextureImporter:
         width: 24
         height: 19
       alignment: 9
-      pivot: {x: 0.5, y: 0.36842105}
+      pivot: {x: 0.375, y: 0.36842105}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -196,7 +196,7 @@ TextureImporter:
         width: 24
         height: 20
       alignment: 9
-      pivot: {x: 0.5, y: 0.35}
+      pivot: {x: 0.375, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1449,8 +1449,8 @@ TextureImporter:
       MinerSpriteSheet_7: -1624365174
       MinerSpriteSheet_42: -1036167061
       MinerSpriteSheet_5: 1644608808
-      MinerSpriteSheet_22: -184964653
       MinerSpriteSheet_28: 1465087277
+      MinerSpriteSheet_22: -184964653
       MinerSpriteSheet_59: -861142430
       MinerSpriteSheet_9: 939299134
       MinerSpriteSheet_56: 1239861672
