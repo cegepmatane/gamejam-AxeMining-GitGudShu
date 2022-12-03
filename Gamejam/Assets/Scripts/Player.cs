@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 10;
+    public float speed = 5;
     public bool isMoving = false;
 
     private Vector3 _targetPos;
