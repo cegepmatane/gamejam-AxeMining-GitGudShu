@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEngine;
 using System;
@@ -98,6 +99,7 @@ public class Player : MonoBehaviour
         if (_targetTile.CompareTag("Ore"))
         {
             Debug.Log("Is ore");
+            _soundHandler.PlayMine();
             m_anim.SetTrigger("Mine");
             _targetTile.GetComponent<OreTile>().Replace();
             getOre();
@@ -118,9 +120,17 @@ public class Player : MonoBehaviour
         if (gameObject.CompareTag("Enemy"))
         {
             Debug.Log("DIES");
+            _soundHandler.PlayExplosion();
             Animator t_enemyAnim = gameObject.GetComponent<Animator>();
             t_enemyAnim.SetTrigger("Explode");
             m_anim.SetTrigger("Dead");
+        }
+
+        if(gameObject.CompareTag("Stairs"))
+        {
+            Debug.Log("go next");
+            _soundHandler.PlayStairs();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
@@ -138,6 +148,7 @@ public class Player : MonoBehaviour
     public void Kill()
     {
         Debug.Log("Player dead");
+        _soundHandler.PlayDie();
         OnPlayerDeath?.Invoke();
     }
 }

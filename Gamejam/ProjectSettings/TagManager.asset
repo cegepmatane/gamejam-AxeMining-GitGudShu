@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Ore
   - Stairs
+  - BGmusic
   layers:
   - Default
   - TransparentFX
