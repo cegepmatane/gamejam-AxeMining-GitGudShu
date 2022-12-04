@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
     {
         transform.position = grid.GridToWorld(grid.WorldToGrid(transform.position));
         _targetPos = transform.position;
+        oreText.text = " " + ores + " / " + grid.oreAmount;
     }
 
     void Update()
@@ -115,8 +116,8 @@ public class Player : MonoBehaviour
     {
         time++;
         ores++;
-        oreText.text = "x" + ores;
-        scoreText.text = "x" + ores;
+        oreText.text = " " + ores + " / " + grid.oreAmount;
+        scoreText.text = "You won in " + time + " turns";
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

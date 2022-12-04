@@ -30,10 +30,7 @@ public class Grid : MonoBehaviour
             t_Tile.x = (uint)t_GridPos.x;
             t_Tile.y = (uint)t_GridPos.y;
         }
-    }
 
-    private void Start()
-    {
         oreAmount = GetComponentsInChildren<OreTile>().ToList().Count;
     }
 
