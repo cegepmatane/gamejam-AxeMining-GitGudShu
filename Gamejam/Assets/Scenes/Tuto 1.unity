@@ -3328,10 +3328,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Some of you young'uns work down in mines? Good! Mining, that's a proper
-    Dwarf job! \n\nI'ma teach ya how it's done! You can use directional keys to move
-    around. You can move towards an ore to mine it. Once you got all of them, proceed
-    through the stairs!"
+  m_text: 'Some of you young''uns work down in mines? Good! Mining, that''s a proper
+    Dwarf job! Ya forgot your pick? Bah! Ya know how to swing an axe don''t ya! Should
+    do the trick just fine!
+
+
+    I''ma teach ya how it''s done! You can use directional
+    keys to move around. You can move towards an ore to mine it. Once you got all
+    of them, proceed through the stairs!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3358,7 +3362,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5.45
+  m_fontSize: 4.9
   m_fontSizeBase: 7.58
   m_fontWeight: 400
   m_enableAutoSizing: 1

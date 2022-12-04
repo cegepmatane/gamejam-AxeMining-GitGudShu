@@ -11052,7 +11052,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Look out brother! There's a bombo nearby, your beard won't survive that
+  m_text: "Look out brother! There's a bombo nearby! Your beard won't survive that
     explosion! \n\nFortunately, he's a nice lad, he'll wait for ya to make a move
     to make his. Get that ore and return to the menu!"
   m_isRightToLeft: 0
