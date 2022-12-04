@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     //public int actionCounter = 0;
     public static int actionPerTurn = 3;
     public static int time = 0;
-    public GameObject Tile_Wall;
     public Grid grid;
 
     private int ores = 0;
@@ -94,40 +93,15 @@ public class Player : MonoBehaviour
 
     bool canMoveTo(Vector2Int a_gridPos) {
         _targetTile = grid.GetTile(a_gridPos);
-        Debug.Log(_targetTile.BaseCost);
-        if (IsOre(_targetPosGrid))
+        if (_targetTile.CompareTag("Ore"))
         {
             Debug.Log("Is ore");
             m_anim.SetTrigger("Mine");
+            _targetTile.GetComponent<OreTile>().Replace();
             getOre();
-            replaceOre(_targetPosGrid);
+            //replaceOre(_targetPosGrid);
         }
         return (_targetTile.BaseCost == 0) ? false : true;
-    }
-
-    bool IsOre(Vector2Int a_gridPos)
-    {
-        _targetTile = grid.GetTile(a_gridPos);
-        return _targetTile.CompareTag("Ore");
-        
-    }
-
-    void replaceOre(Vector2Int a_gridPos)
-    {
-        //List<Tile> t_Tiles = _grid.GetComponentsInChildren<Tile>().ToList();
-        Tile t_OldTile = grid.tiles.FirstOrDefault(t => a_gridPos == grid.WorldToGrid(t.transform.position));
-        if (t_OldTile)
-        {
-            Debug.Log(t_OldTile.name);
-            Destroy(t_OldTile.gameObject);
-        }
-        
-        GameObject t_NewTile = Instantiate(Tile_Wall, grid.transform);
-        t_NewTile.transform.position = grid.GridToWorld(a_gridPos);
-        Sprite t_Sprite = t_NewTile.GetComponent<SpriteRenderer>().sprite;
-        float t_NewScale = grid.CellSize / t_Sprite.bounds.size.x;
-        t_NewTile.transform.localScale = new Vector3(t_NewScale, t_NewScale, t_NewScale);
-        grid.tiles = grid.GetComponentsInChildren<Tile>().ToList();
     }
 
     void getOre()
@@ -141,7 +115,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         {
             Debug.Log("DIES");
-            Animator t_enemyAnim = GameObject.Find("Enemy").GetComponent<Ennemy>().GetComponent<Animator>();
+            Animator t_enemyAnim = collision.gameObject.GetComponent<Ennemy>().GetComponent<Animator>();
             t_enemyAnim.SetTrigger("Explode");
             m_anim.SetTrigger("Dead");
         }

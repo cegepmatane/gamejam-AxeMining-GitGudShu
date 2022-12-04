@@ -19,7 +19,6 @@ public class MapGenerator : MonoBehaviour
     private int _spawnPosX;
     private int _spawnPosY;
     private int _spawnRadius = 5;
-    private GameObject _player;
 
     [SerializeField] private Grid _grid;
     [SerializeField] private GameObject _groundTile;
@@ -52,11 +51,9 @@ public class MapGenerator : MonoBehaviour
         GenerateStairs();
         PlaceTiles();
 
-        _player = Instantiate(_miner);
-        _player.GetComponent<Player>().grid = _grid;
-        _player.transform.position = _grid.GridToWorld(new Vector2Int(_spawnPosX, _spawnPosY));
+        _miner.transform.position = _grid.GridToWorld(new Vector2Int(_spawnPosX, _spawnPosY));
 
-        SpawnEnnemy();
+        //SpawnEnnemy();
     }
 
     void PlaceTile(GameObject a_tile, int a_x, int a_y) {
@@ -155,7 +152,7 @@ public class MapGenerator : MonoBehaviour
                 if (_tiles[t_y, t_x] == TILES.GROUND /* && Mathf.Abs(t_x - _spawnPosX) >= _spawnRadius && Mathf.Abs(t_y - _spawnPosY) >= _spawnRadius*/) {
                     GameObject t_ennemy = Instantiate(_bomb);
                     t_ennemy.GetComponent<Ennemy>().grid = _grid;
-                    t_ennemy.GetComponent<Ennemy>().Objective = _player.transform;
+                    t_ennemy.GetComponent<Ennemy>().Objective = _miner.transform;
                     t_ennemy.GetComponent<Ennemy>().Pathfinder = _grid.GetComponent<Pathfinder>();
                     t_ennemy.transform.position = _grid.GridToWorld(new Vector2Int(t_x, t_y));
                     t_findGoodTile = true;

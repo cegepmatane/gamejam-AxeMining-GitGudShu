@@ -17,7 +17,6 @@ public class Ennemy : MonoBehaviour
     void Start()
     {
         m_Anim = GetComponent<Animator>();
-        transform.position = grid.GridToWorld(grid.WorldToGrid(transform.position));
     }
 
     // Update is called once per frame
@@ -78,15 +77,13 @@ public class Ennemy : MonoBehaviour
         m_Path = Pathfinder.GetPath(t_StartTile, t_EndTile, false);
     }
 
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected() {
         if (m_Path == null)
             return;
 
         Gizmos.color = Color.yellow;
 
-        for (int i = 0; i < m_Path.Checkpoints.Count - 1; i++)
-        {
+        for (int i = 0; i < m_Path.Checkpoints.Count - 1; i++) {
             Gizmos.DrawLine(m_Path.Checkpoints[i].transform.position, m_Path.Checkpoints[i + 1].transform.position);
         }
     }
