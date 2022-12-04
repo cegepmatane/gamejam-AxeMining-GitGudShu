@@ -7,7 +7,7 @@ public class Ennemy : MonoBehaviour
     public float Speed = 10f;
     public int nbActionToMove = 3;
     public Pathfinder Pathfinder;
-    public Grid Grid;
+    public Grid grid;
     public Transform Objective;
     public bool canMove = false;
 
@@ -51,13 +51,6 @@ public class Ennemy : MonoBehaviour
                 CalculatePath();
                 canMove = false;
                 if (m_Path == null) return;
-
-                if (m_Path.Checkpoints.Count == 1)
-                {
-                    m_Anim.SetTrigger("Explode");
-                    StartCoroutine(WaitBeforeDestruction());
-                    Destroy(gameObject);
-                }
             }
         }
         if(Player.time % nbActionToMove == 0 && !canMove)
@@ -78,27 +71,26 @@ public class Ennemy : MonoBehaviour
 
     private void CalculatePath()
     {
-        Tile t_StartTile = Grid.GetTile(Grid.WorldToGrid(transform.position));
-        Tile t_EndTile = Grid.GetTile(Grid.WorldToGrid(Objective.position));
+        Tile t_StartTile = grid.GetTile(grid.WorldToGrid(transform.position));
+        Tile t_EndTile = grid.GetTile(grid.WorldToGrid(Objective.position));
 
         m_Path = Pathfinder.GetPath(t_StartTile, t_EndTile, false);
     }
 
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected() {
         if (m_Path == null)
             return;
 
         Gizmos.color = Color.yellow;
 
-        for (int i = 0; i < m_Path.Checkpoints.Count - 1; i++)
-        {
+        for (int i = 0; i < m_Path.Checkpoints.Count - 1; i++) {
             Gizmos.DrawLine(m_Path.Checkpoints[i].transform.position, m_Path.Checkpoints[i + 1].transform.position);
         }
     }
 
-    IEnumerator WaitBeforeDestruction()
+    public void Explodes()
     {
-        yield return new WaitForSeconds(2.0f);
+        Destroy(gameObject);
     }
+
 }
