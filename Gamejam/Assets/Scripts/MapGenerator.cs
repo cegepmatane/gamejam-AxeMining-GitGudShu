@@ -132,6 +132,7 @@ public class MapGenerator : MonoBehaviour
             _tiles[t_tile.y, t_tile.x] = TILES.ORE;
             t_validTiles.Remove(t_tile);
         }
+        _grid.oreAmount = oreAmount;
     }
     void GenerateStairs()
     {

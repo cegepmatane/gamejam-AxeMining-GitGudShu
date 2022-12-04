@@ -4424,6 +4424,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3849917727617575240, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3849917727617575243, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
       propertyPath: m_Name
       value: Canvas
