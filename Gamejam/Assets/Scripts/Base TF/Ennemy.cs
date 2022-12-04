@@ -100,7 +100,7 @@ public class Ennemy : MonoBehaviour
         Tile _actualTile = grid.GetTile(new Vector2Int((int)a_x,(int)a_y));
         Material _material = _actualTile.gameObject.GetComponent<SpriteRenderer>().material;
         //if(_material.name == "Ground")
-            _material.SetInteger("_isDanger", 1);
+            _material.SetFloat("_isDanger", 1f);
     }
 
     void TurnOffDanger(Vector2Int a_GridPos)
@@ -121,7 +121,7 @@ public class Ennemy : MonoBehaviour
         Tile _actualTile = grid.GetTile(new Vector2Int((int)a_x, (int)a_y));
         Material _material = _actualTile.gameObject.GetComponent<SpriteRenderer>().material;
         //if (_material.name == "Ground")
-            _material.SetInteger("_isDanger", 0);
+            _material.SetFloat("_isDanger", 0f);
     }
 
     public void SetPath(Path a_Path)
