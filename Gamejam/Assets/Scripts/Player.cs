@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("go next");
             _soundHandler.PlayStairs();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
         }
     }
 
