@@ -24,6 +24,7 @@ public class Ennemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (canMove)
         {
             if (m_Path == null)
@@ -35,7 +36,7 @@ public class Ennemy : MonoBehaviour
                 return;
             }
             Vector3 t_TargetPos = m_Path.Checkpoints[1].transform.position;
-            m_LastGridPos = new Vector2Int((int)m_Path.Checkpoints[0].x, (int)m_Path.Checkpoints[0].y);
+            //m_LastGridPos = new Vector2Int((int)m_Path.Checkpoints[0].x, (int)m_Path.Checkpoints[0].y);
             Vector3 t_Direction = t_TargetPos - transform.position;
             Vector3 t_Deplacement = t_Direction.normalized * Time.deltaTime * Speed;
             TurnOffDanger(grid.WorldToGrid(transform.position));
@@ -72,7 +73,8 @@ public class Ennemy : MonoBehaviour
 
     void TurnOnDanger(Vector2Int a_GridPos)
     {
-        Debug.Log("TurnOnDanger : " + a_GridPos.x + " - " + a_GridPos.y);
+
+        //Debug.Log("TurnOnDanger : " + a_GridPos.x + " - " + a_GridPos.y);
         Tile _actualTile = grid.GetTile(a_GridPos);
         uint _x = _actualTile.x;
         uint _y = _actualTile.y;
@@ -86,13 +88,14 @@ public class Ennemy : MonoBehaviour
     {
         Tile _actualTile = grid.GetTile(new Vector2Int((int)a_x,(int)a_y));
         Material _material = _actualTile.gameObject.GetComponent<SpriteRenderer>().material;
+        Debug.Log(_material.name);
         //if(_material.name == "Ground")
             _material.SetInteger("_isDanger", 1);
     }
 
     void TurnOffDanger(Vector2Int a_GridPos)
     {
-        Debug.Log("TurnOffDanger : " + a_GridPos.x + " - " + a_GridPos.y);
+        //Debug.Log("TurnOffDanger : " + a_GridPos.x + " - " + a_GridPos.y);
         Tile _actualTile = grid.GetTile(a_GridPos);
         uint _x = _actualTile.x;
         uint _y = _actualTile.y;
