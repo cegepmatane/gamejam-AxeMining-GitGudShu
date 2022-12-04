@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 811f075920e46184490191e8e878aefe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 4
+  Speed: 5
   nbActionToMove: 3
   Pathfinder: {fileID: 0}
   grid: {fileID: 0}
