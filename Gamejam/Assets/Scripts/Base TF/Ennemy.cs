@@ -13,9 +13,11 @@ public class Ennemy : MonoBehaviour
 
     private Path m_Path;
     private Animator m_Anim;
+    private Vector2Int m_LastGridPos;
 
     void Start()
     {
+        transform.position = grid.GridToWorld(grid.WorldToGrid(transform.position));
         m_Anim = GetComponent<Animator>();
     }
 
@@ -33,9 +35,10 @@ public class Ennemy : MonoBehaviour
                 return;
             }
             Vector3 t_TargetPos = m_Path.Checkpoints[1].transform.position;
-
+            m_LastGridPos = new Vector2Int((int)m_Path.Checkpoints[0].x, (int)m_Path.Checkpoints[0].y);
             Vector3 t_Direction = t_TargetPos - transform.position;
             Vector3 t_Deplacement = t_Direction.normalized * Time.deltaTime * Speed;
+            TurnOffDanger(grid.WorldToGrid(transform.position));
             if (t_Deplacement.magnitude >= t_Direction.magnitude) // on dépasse le checkpoint
             {
                 transform.position = t_TargetPos;
@@ -50,6 +53,7 @@ public class Ennemy : MonoBehaviour
             {
                 CalculatePath();
                 canMove = false;
+                
                 if (m_Path == null) return;
             }
         }
@@ -58,9 +62,52 @@ public class Ennemy : MonoBehaviour
             Player.time++;
             CalculatePath();
             canMove = true;
+            
         }
-
+        TurnOnDanger(grid.WorldToGrid(transform.position));
         m_Anim.SetBool("isMoving", canMove);
+
+        
+    }
+
+    void TurnOnDanger(Vector2Int a_GridPos)
+    {
+        Debug.Log("TurnOnDanger : " + a_GridPos.x + " - " + a_GridPos.y);
+        Tile _actualTile = grid.GetTile(a_GridPos);
+        uint _x = _actualTile.x;
+        uint _y = _actualTile.y;
+        TurnOnDangerTile(_x - 1, _y);
+        TurnOnDangerTile(_x, _y - 1);
+        TurnOnDangerTile(_x + 1, _y);
+        TurnOnDangerTile(_x, _y + 1);
+    }
+
+    void TurnOnDangerTile(uint a_x, uint a_y)
+    {
+        Tile _actualTile = grid.GetTile(new Vector2Int((int)a_x,(int)a_y));
+        Material _material = _actualTile.gameObject.GetComponent<SpriteRenderer>().material;
+        //if(_material.name == "Ground")
+            _material.SetInteger("_isDanger", 1);
+    }
+
+    void TurnOffDanger(Vector2Int a_GridPos)
+    {
+        Debug.Log("TurnOffDanger : " + a_GridPos.x + " - " + a_GridPos.y);
+        Tile _actualTile = grid.GetTile(a_GridPos);
+        uint _x = _actualTile.x;
+        uint _y = _actualTile.y;
+        TurnOffDangerTile(_x - 1, _y);
+        TurnOffDangerTile(_x, _y - 1);
+        TurnOffDangerTile(_x + 1, _y);
+        TurnOffDangerTile(_x, _y + 1);
+    }
+
+    void TurnOffDangerTile(uint a_x, uint a_y)
+    {
+        Tile _actualTile = grid.GetTile(new Vector2Int((int)a_x, (int)a_y));
+        Material _material = _actualTile.gameObject.GetComponent<SpriteRenderer>().material;
+        //if (_material.name == "Ground")
+            _material.SetInteger("_isDanger", 0);
     }
 
     public void SetPath(Path a_Path)
