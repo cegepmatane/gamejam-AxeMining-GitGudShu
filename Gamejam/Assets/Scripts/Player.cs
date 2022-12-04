@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
                     isMoving = true;
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Space)) time++;
             _collider.enabled = true;
             m_anim.SetBool("isMoving", isMoving);
             Flip();
