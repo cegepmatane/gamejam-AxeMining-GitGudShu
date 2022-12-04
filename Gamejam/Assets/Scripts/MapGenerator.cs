@@ -29,8 +29,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private GameObject _bomb;
     
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _grid.RowCount = (uint)Random.Range(minRow, maxRow);
         _grid.ColumnCount = (uint)Random.Range(minCol, maxCol);
