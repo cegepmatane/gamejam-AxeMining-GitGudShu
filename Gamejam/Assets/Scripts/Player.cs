@@ -107,7 +107,6 @@ public class Player : MonoBehaviour
         _targetTile = grid.GetTile(a_gridPos);
         if (_targetTile.CompareTag("Ore"))
         {
-            Debug.Log("Is ore");
             _soundHandler.PlayMine();
             m_anim.SetTrigger("Mine");
             _targetTile.GetComponent<OreTile>().Replace();
@@ -129,7 +128,6 @@ public class Player : MonoBehaviour
         GameObject gameObject = collision.gameObject;
         if (gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("DIES");
             _soundHandler.PlayExplosion();
             Animator t_enemyAnim = gameObject.GetComponent<Animator>();
             t_enemyAnim.SetTrigger("Explode");
@@ -138,7 +136,6 @@ public class Player : MonoBehaviour
 
         if(gameObject.CompareTag("Stairs"))
         {
-            Debug.Log("go next");
             _soundHandler.PlayStairs();
             SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
         }
@@ -157,7 +154,6 @@ public class Player : MonoBehaviour
 
     public void Kill()
     {
-        Debug.Log("Player dead");
         _soundHandler.PlayDie();
         OnPlayerDeath?.Invoke();
     }
