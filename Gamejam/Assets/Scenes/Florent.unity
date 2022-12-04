@@ -3178,13 +3178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa8eea8bf716d348acd9423e00f8294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRow: 20
-  maxRow: 20
-  minCol: 20
-  maxCol: 20
+  minRow: 10
+  maxRow: 10
+  minCol: 10
+  maxCol: 10
   chanceOfGround: 3
-  oreAmount: 50
-  ennemyAmount: 4
+  oreAmount: 10
+  ennemyAmount: 2
   _grid: {fileID: 1276288217}
   _groundTile: {fileID: 3882874166843239434, guid: 5ef261b1c5e23874983ee8de73515a8b, type: 3}
   _wallTile: {fileID: 1559795851569715833, guid: 4e4a5b1282cd1904fbfe4afd72e93bd4, type: 3}
