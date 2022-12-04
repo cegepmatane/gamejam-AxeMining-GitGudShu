@@ -1,4 +1,4 @@
-# Game title 
+# Gamejam : Axe Mining
 
 Gamejam de l'équipe:
 - Gabin Blondieau
