@@ -158,14 +158,12 @@ MonoBehaviour:
   maxCol: 20
   chanceOfGround: 4
   oreAmount: 10
-  ennemyAmount: 4
   _grid: {fileID: 365749275}
   _groundTile: {fileID: 3882874166843239434, guid: 5ef261b1c5e23874983ee8de73515a8b, type: 3}
   _wallTile: {fileID: 1559795851569715833, guid: 4e4a5b1282cd1904fbfe4afd72e93bd4, type: 3}
   _oreTile: {fileID: 1559795851569715833, guid: ec22534ef50162f49984593ed3c5ccfa, type: 3}
   _stairsTile: {fileID: 3882874166843239434, guid: 991cccff0e3a1604991564f4db846780, type: 3}
   _miner: {fileID: 8174874184418654330, guid: 330e91617d4b7f644aa6916e2d61d2e1, type: 3}
-  _bomb: {fileID: 0}
 --- !u!4 &360590646
 Transform:
   m_ObjectHideFlags: 0
@@ -282,7 +280,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -460,53 +458,4 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1876018323
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1876018325}
-  - component: {fileID: 1876018324}
-  m_Layer: 0
-  m_Name: Global Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1876018324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876018323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 880c9694e9a17e74a8c0376632e6020a, type: 2}
---- !u!4 &1876018325
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876018323}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2246127, y: 1.6701488, z: 0.031978555}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
