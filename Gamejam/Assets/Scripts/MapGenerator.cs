@@ -18,7 +18,7 @@ public class MapGenerator : MonoBehaviour
     private Vector2Int[] _directions = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
     private int _spawnPosX;
     private int _spawnPosY;
-    private int _spawnRadius = 5;
+    private int _spawnRadius = 3;
 
     [SerializeField] private Grid _grid;
     [SerializeField] private GameObject _groundTile;
@@ -53,7 +53,7 @@ public class MapGenerator : MonoBehaviour
 
         _miner.transform.position = _grid.GridToWorld(new Vector2Int(_spawnPosX, _spawnPosY));
 
-        //SpawnEnnemy();
+        SpawnEnnemy();
     }
 
     void PlaceTile(GameObject a_tile, int a_x, int a_y) {
@@ -115,6 +115,7 @@ public class MapGenerator : MonoBehaviour
                         if (t_x >= 0 && t_x < _grid.ColumnCount && t_y >= 0 && t_y < _grid.RowCount) {
                             if (_tiles[t_y, t_x] == TILES.GROUND) {
                                 t_validTiles.Add(new Vector2Int(x, y));
+                                break;
                             }
                         }
                     }
@@ -149,7 +150,7 @@ public class MapGenerator : MonoBehaviour
             do {
                 int t_x = (int)Random.Range(1, _grid.ColumnCount - 1);
                 int t_y = (int)Random.Range(1, _grid.RowCount - 1);
-                if (_tiles[t_y, t_x] == TILES.GROUND /* && Mathf.Abs(t_x - _spawnPosX) >= _spawnRadius && Mathf.Abs(t_y - _spawnPosY) >= _spawnRadius*/) {
+                if (_tiles[t_y, t_x] == TILES.GROUND && Mathf.Abs(t_x - _spawnPosX) >= _spawnRadius && Mathf.Abs(t_y - _spawnPosY) >= _spawnRadius) {
                     GameObject t_ennemy = Instantiate(_bomb);
                     t_ennemy.GetComponent<Ennemy>().grid = _grid;
                     t_ennemy.GetComponent<Ennemy>().Objective = _miner.transform;
