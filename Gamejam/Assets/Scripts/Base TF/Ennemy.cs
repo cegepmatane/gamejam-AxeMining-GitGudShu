@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ennemy : MonoBehaviour
 {
-    public float Speed = 10f;
+    public float Speed = 5f;
     public int nbActionToMove = 3;
     public Pathfinder Pathfinder;
     public Grid grid;
@@ -12,7 +12,8 @@ public class Ennemy : MonoBehaviour
     public bool canMove;
     public bool canGenerate;
 
-    private int _addCost = 100;
+    private int _addCost = 500;
+    private bool _isMoving;
     private Path m_Path;
     private Animator m_Anim;
     private Vector2Int m_NextGridPos;
@@ -96,18 +97,19 @@ public class Ennemy : MonoBehaviour
             }
             else
             {
+                _isMoving = true;
                 transform.position += t_Deplacement;
             }
             if (transform.position == t_TargetPos)
             {
-
+                _isMoving = false;
                 canMove = false;
                 TurnOnDanger(grid.WorldToGrid(transform.position));
                 canGenerate = true;
                 grid.GetTile(grid.WorldToGrid(transform.position)).BaseCost += (uint)_addCost;
             }
         }
-        if(Player.time % nbActionToMove == nbActionToMove - 2)
+        if (Player.time % nbActionToMove == nbActionToMove - 2)
         {
             TurnOnDanger(grid.WorldToGrid(transform.position));
         }
@@ -115,12 +117,14 @@ public class Ennemy : MonoBehaviour
         {
             CalculatePath();
             m_NextGridPos = new Vector2Int((int)m_Path.Checkpoints[1].x, (int)m_Path.Checkpoints[1].y);
+            grid.GetTile(m_NextGridPos).BaseCost -= (uint)_addCost;
             TurnOffDanger(grid.WorldToGrid(transform.position));
             TurnOnDanger(m_NextGridPos);
             canMove = true;
             canGenerate = false;
             grid.GetTile(grid.WorldToGrid(transform.position)).BaseCost -= (uint)_addCost;
         }
+        m_Anim.SetBool("isMoving", _isMoving);
     }
 
     void TurnOnDanger(Vector2Int a_GridPos)
