@@ -14,12 +14,12 @@ public class Player : MonoBehaviour
     public static event Action onWin;
 
     public float speed = 5;
-    public bool isMoving = false;
     //public int actionCounter = 0;
     public static int actionPerTurn = 3;
     public static int time = 0;
     public Grid grid;
 
+    private bool isMoving = false;
     private int ores = 0;
     private bool _facingRight = true;
     private Vector3 _targetPos;
@@ -45,14 +45,16 @@ public class Player : MonoBehaviour
         onWin -= DisablePlayerMovement;
     }
 
+    private void Awake() {
+        m_anim = GetComponent<Animator>();
+        _soundHandler = GetComponent<SoundHandler>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = grid.GridToWorld(grid.WorldToGrid(transform.position));
         _targetPos = transform.position;
-        m_anim = GetComponent<Animator>();
-        _soundHandler = GetComponent<SoundHandler>();
     }
 
     // Update is called once per frame
@@ -112,6 +114,7 @@ public class Player : MonoBehaviour
 
     void getOre()
     {
+        time++;
         ores++;
         oreText.text = "x" + ores;
         scoreText.text = "x" + ores;
@@ -132,7 +135,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("go next");
             _soundHandler.PlayStairs();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
         }
     }
 

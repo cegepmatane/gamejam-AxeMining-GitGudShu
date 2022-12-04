@@ -17,8 +17,7 @@ public class MainMenu : MonoBehaviour
 
     public void ShowOptions()
     {
-        mainMenuPanel.SetActive(false);
-        optionPanel.SetActive(true);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
     }
 
     public void ShowMainMenu()
