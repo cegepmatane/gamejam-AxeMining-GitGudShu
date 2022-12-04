@@ -126,7 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  isMoving: 0
   grid: {fileID: 0}
   oreText: {fileID: 0}
   scoreText: {fileID: 0}
