@@ -9,22 +9,25 @@ public class Ennemy : MonoBehaviour
     public Pathfinder Pathfinder;
     public Grid grid;
     public Transform Objective;
-    public bool canMove = false;
+    public bool canMove;
+    public bool canGenerate;
 
     private Path m_Path;
     private Animator m_Anim;
-    private Vector2Int m_LastGridPos;
+    private Vector2Int m_NextGridPos;
 
     void Start()
     {
         transform.position = grid.GridToWorld(grid.WorldToGrid(transform.position));
         m_Anim = GetComponent<Animator>();
+        canMove = true;
+        canGenerate = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        /*
         if (canMove)
         {
             if (m_Path == null)
@@ -68,7 +71,53 @@ public class Ennemy : MonoBehaviour
         TurnOnDanger(grid.WorldToGrid(transform.position));
         m_Anim.SetBool("isMoving", canMove);
 
-        
+        */
+
+        if(Player.time % nbActionToMove == 0 && canMove)
+        {
+            if (m_Path == null)
+            {
+                CalculatePath();
+            }
+            if (m_Path == null)
+            {
+                return;
+            }
+            //TurnOffDanger(grid.WorldToGrid(transform.position));
+            Vector3 t_TargetPos = m_Path.Checkpoints[1].transform.position;
+            //m_LastGridPos = new Vector2Int((int)m_Path.Checkpoints[0].x, (int)m_Path.Checkpoints[0].y);
+            Vector3 t_Direction = t_TargetPos - transform.position;
+            Vector3 t_Deplacement = t_Direction.normalized * Time.deltaTime * Speed;
+            if (t_Deplacement.magnitude >= t_Direction.magnitude) // on dépasse le checkpoint
+            {
+                transform.position = t_TargetPos;
+                canMove = false;
+            }
+            else
+            {
+                transform.position += t_Deplacement;
+            }
+            if (transform.position == t_TargetPos)
+            {
+
+                canMove = false;
+                TurnOnDanger(grid.WorldToGrid(transform.position));
+                canGenerate = true;
+            }
+        }
+        if(Player.time % nbActionToMove == nbActionToMove - 2)
+        {
+            TurnOnDanger(grid.WorldToGrid(transform.position));
+        }
+        if(Player.time % nbActionToMove == nbActionToMove-1 && canGenerate)
+        {
+            CalculatePath();
+            m_NextGridPos = new Vector2Int((int)m_Path.Checkpoints[1].x, (int)m_Path.Checkpoints[1].y);
+            TurnOffDanger(grid.WorldToGrid(transform.position));
+            TurnOnDanger(m_NextGridPos);
+            canMove = true;
+            canGenerate = false;
+        }
     }
 
     void TurnOnDanger(Vector2Int a_GridPos)
@@ -78,6 +127,7 @@ public class Ennemy : MonoBehaviour
         Tile _actualTile = grid.GetTile(a_GridPos);
         uint _x = _actualTile.x;
         uint _y = _actualTile.y;
+        TurnOnDangerTile(_x, _y);
         TurnOnDangerTile(_x - 1, _y);
         TurnOnDangerTile(_x, _y - 1);
         TurnOnDangerTile(_x + 1, _y);
@@ -99,6 +149,7 @@ public class Ennemy : MonoBehaviour
         Tile _actualTile = grid.GetTile(a_GridPos);
         uint _x = _actualTile.x;
         uint _y = _actualTile.y;
+        TurnOffDangerTile(_x, _y);
         TurnOffDangerTile(_x - 1, _y);
         TurnOffDangerTile(_x, _y - 1);
         TurnOffDangerTile(_x + 1, _y);
