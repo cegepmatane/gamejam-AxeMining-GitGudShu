@@ -124,6 +124,10 @@ public class MapGenerator : MonoBehaviour
         }
 
         for (int i = 0; i < oreAmount; i++) {
+            if (t_validTiles.Count == 0) {
+                oreAmount = i + 1;
+                break;
+            }
             Vector2Int t_tile = t_validTiles[Random.Range(0, t_validTiles.Count - 1)];
             _tiles[t_tile.y, t_tile.x] = TILES.ORE;
             t_validTiles.Remove(t_tile);
@@ -156,6 +160,7 @@ public class MapGenerator : MonoBehaviour
         }
 
         for (int i = 0; i < ennemyAmount; i++) {
+            if (t_validTiles.Count == 0) break;
             Vector2Int t_tile = t_validTiles[Random.Range(0, t_validTiles.Count - 1)];
             GameObject t_ennemy = Instantiate(_bomb);
             t_ennemy.GetComponent<Ennemy>().grid = _grid;
