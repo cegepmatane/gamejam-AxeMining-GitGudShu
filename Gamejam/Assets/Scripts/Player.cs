@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEngine;
 using System;
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     private Tile _targetTile;
     private Vector2Int _targetPosGrid;
     private Animator m_anim;
+    private SoundHandler _soundHandler;
 
     [SerializeField] private TextMeshProUGUI oreText;
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour
         transform.position = grid.GridToWorld(grid.WorldToGrid(transform.position));
         _targetPos = transform.position;
         m_anim = GetComponent<Animator>();
+        _soundHandler = GetComponent<SoundHandler>();
     }
 
     // Update is called once per frame
@@ -96,6 +99,7 @@ public class Player : MonoBehaviour
         if (_targetTile.CompareTag("Ore"))
         {
             Debug.Log("Is ore");
+            _soundHandler.PlayMine();
             m_anim.SetTrigger("Mine");
             _targetTile.GetComponent<OreTile>().Replace();
             getOre();
@@ -112,12 +116,21 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        GameObject gameObject = collision.gameObject;
+        if (gameObject.CompareTag("Enemy"))
         {
             Debug.Log("DIES");
-            Animator t_enemyAnim = collision.gameObject.GetComponent<Ennemy>().GetComponent<Animator>();
+            _soundHandler.PlayExplosion();
+            Animator t_enemyAnim = gameObject.GetComponent<Animator>();
             t_enemyAnim.SetTrigger("Explode");
             m_anim.SetTrigger("Dead");
+        }
+
+        if(gameObject.CompareTag("Stairs"))
+        {
+            Debug.Log("go next");
+            _soundHandler.PlayStairs();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
@@ -135,6 +148,7 @@ public class Player : MonoBehaviour
     public void Kill()
     {
         Debug.Log("Player dead");
+        _soundHandler.PlayDie();
         OnPlayerDeath?.Invoke();
     }
 }
