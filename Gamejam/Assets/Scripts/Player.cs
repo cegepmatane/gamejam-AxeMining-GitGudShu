@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
             m_anim.SetTrigger("Dead");
         }
 
-        if(gameObject.CompareTag("Stairs"))
+        if(gameObject.CompareTag("Stairs") && grid.oreAmount == ores)
         {
             _soundHandler.PlayStairs();
             SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);

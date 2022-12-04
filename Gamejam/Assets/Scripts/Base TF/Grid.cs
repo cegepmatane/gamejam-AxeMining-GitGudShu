@@ -10,6 +10,7 @@ public class Grid : MonoBehaviour
     public uint ColumnCount = 10;
     public Color GridColor = Color.white;
     public List<Tile> tiles;
+    public int oreAmount;
 
 #if UNITY_EDITOR
     [Space]
@@ -29,6 +30,11 @@ public class Grid : MonoBehaviour
             t_Tile.x = (uint)t_GridPos.x;
             t_Tile.y = (uint)t_GridPos.y;
         }
+    }
+
+    private void Start()
+    {
+        oreAmount = GetComponentsInChildren<OreTile>().ToList().Count;
     }
 
     private void OnDrawGizmosSelected()

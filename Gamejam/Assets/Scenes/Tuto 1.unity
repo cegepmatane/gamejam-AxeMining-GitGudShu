@@ -2112,9 +2112,9 @@ MonoBehaviour:
     do the trick just fine!
 
 
-    I''ma teach ya how it''s done! You can use directional
-    keys to move around. You can move towards an ore to mine it. Once you got all
-    of them, proceed through the stairs!'
+    I''ma teach ya how it''s done! Ya can use directional
+    keys to move around. Ya can move towards an ore to mine it and ya need all of
+    them to proceed through the stairs!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 77f21a9d22da81c40869325ae58889b8, type: 2}
   m_sharedMaterial: {fileID: -8294871085106250214, guid: 77f21a9d22da81c40869325ae58889b8, type: 2}
