@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEngine;
 using System;
-using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour
 {
@@ -14,7 +13,6 @@ public class Player : MonoBehaviour
     public static event Action onWin;
 
     public float speed = 5;
-    //public int actionCounter = 0;
     public static int actionPerTurn = 3;
     public static int time = 0;
     public Grid grid;
@@ -52,14 +50,12 @@ public class Player : MonoBehaviour
         _soundHandler = GetComponent<SoundHandler>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         transform.position = grid.GridToWorld(grid.WorldToGrid(transform.position));
         _targetPos = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!isMoving) {
@@ -111,7 +107,6 @@ public class Player : MonoBehaviour
             m_anim.SetTrigger("Mine");
             _targetTile.GetComponent<OreTile>().Replace();
             getOre();
-            //replaceOre(_targetPosGrid);
         }
         return (_targetTile.BaseCost == 0) ? false : true;
     }
