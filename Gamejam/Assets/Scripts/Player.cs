@@ -82,9 +82,18 @@ public class Player : MonoBehaviour
             Flip();
         }
         else {
-            _collider.enabled = false;
+            StartCoroutine(DisableColider());
             MoveTo(_targetPos);
         }
+    }
+
+    IEnumerator DisableColider() {
+        if (_collider.enabled == true)
+        {
+            yield return new WaitForSeconds(0.05f);
+            _collider.enabled = false;
+        }
+        else _collider.enabled = false;
     }
 
     void MoveTo(Vector3 a_targetPos) {
@@ -97,6 +106,10 @@ public class Player : MonoBehaviour
         }
         else {
             transform.position += _mouvement;
+        }
+        if (transform.position == a_targetPos)
+        {
+            isMoving = false;
         }
     }
 
