@@ -2112,12 +2112,12 @@ MonoBehaviour:
     do the trick just fine!
 
 
-    I''ma teach ya how it''s done! You can use directional
-    keys to move around. You can move towards an ore to mine it. Once you got all
-    of them, proceed through the stairs!'
+    I''ma teach ya how it''s done! Ya can use directional
+    keys to move around. Ya can move towards an ore to mine it and ya need all of
+    them to proceed through the stairs!'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 77f21a9d22da81c40869325ae58889b8, type: 2}
-  m_sharedMaterial: {fileID: -8294871085106250214, guid: 77f21a9d22da81c40869325ae58889b8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 63c933ff0d10a88479a0cdaf2885488a, type: 2}
+  m_sharedMaterial: {fileID: 6289165993650939190, guid: 63c933ff0d10a88479a0cdaf2885488a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2206,7 +2206,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8294871085106250214, guid: 77f21a9d22da81c40869325ae58889b8, type: 2}
+  - {fileID: 6289165993650939190, guid: 63c933ff0d10a88479a0cdaf2885488a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4424,6 +4424,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3849917727603465670, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3849917727617575243, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -4510,6 +4514,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3849917727617575247, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849917728127256200, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849917728328793494, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849917728444383801, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849917728498320659, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849917728826562950, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849917729042656247, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849917729212815435, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3849917729245485598, guid: 43214c06fcb2fdf4fa8af350ceecd0d9, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -14283,6 +14319,7 @@ MonoBehaviour:
   ColumnCount: 8
   GridColor: {r: 1, g: 1, b: 1, a: 1}
   tiles: []
+  oreAmount: 0
   AvailableTiles:
   - {fileID: 3882874166843239434, guid: 5ef261b1c5e23874983ee8de73515a8b, type: 3}
   - {fileID: 1559795851569715833, guid: 4e4a5b1282cd1904fbfe4afd72e93bd4, type: 3}
