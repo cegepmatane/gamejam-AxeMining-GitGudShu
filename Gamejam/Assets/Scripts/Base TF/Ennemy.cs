@@ -106,7 +106,7 @@ public class Ennemy : MonoBehaviour
                 canMove = false;
                 TurnOnDanger(grid.WorldToGrid(transform.position));
                 canGenerate = true;
-                grid.GetTile(grid.WorldToGrid(transform.position)).BaseCost += (uint)_addCost;
+                //grid.GetTile(grid.WorldToGrid(transform.position)).BaseCost += (uint)_addCost;
             }
         }
         if (Player.time % nbActionToMove == nbActionToMove - 2)
