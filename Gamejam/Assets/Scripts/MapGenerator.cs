@@ -145,20 +145,24 @@ public class MapGenerator : MonoBehaviour
     }
 
     void SpawnEnnemy() {
-        for (int i = 0; i < ennemyAmount; i++) {
-            bool t_findGoodTile = false;
-            do {
-                int t_x = (int)Random.Range(1, _grid.ColumnCount - 1);
-                int t_y = (int)Random.Range(1, _grid.RowCount - 1);
-                if (_tiles[t_y, t_x] == TILES.GROUND && Mathf.Abs(t_x - _spawnPosX) >= _spawnRadius && Mathf.Abs(t_y - _spawnPosY) >= _spawnRadius) {
-                    GameObject t_ennemy = Instantiate(_bomb);
-                    t_ennemy.GetComponent<Ennemy>().grid = _grid;
-                    t_ennemy.GetComponent<Ennemy>().Objective = _miner.transform;
-                    t_ennemy.GetComponent<Ennemy>().Pathfinder = _grid.GetComponent<Pathfinder>();
-                    t_ennemy.transform.position = _grid.GridToWorld(new Vector2Int(t_x, t_y));
-                    t_findGoodTile = true;
+
+        List<Vector2Int> t_validTiles = new List<Vector2Int>();
+        for (int y = 0; y < _grid.RowCount; y++) {
+            for (int x = 0; x < _grid.ColumnCount; x++) {
+                if (_tiles[y, x] == TILES.GROUND && Mathf.Abs(x - _spawnPosX) >= _spawnRadius && Mathf.Abs(y - _spawnPosY) >= _spawnRadius) {
+                    t_validTiles.Add(new Vector2Int(x, y));
                 }
-            } while (!t_findGoodTile);
+            }
+        }
+
+        for (int i = 0; i < ennemyAmount; i++) {
+            Vector2Int t_tile = t_validTiles[Random.Range(0, t_validTiles.Count - 1)];
+            GameObject t_ennemy = Instantiate(_bomb);
+            t_ennemy.GetComponent<Ennemy>().grid = _grid;
+            t_ennemy.GetComponent<Ennemy>().Objective = _miner.transform;
+            t_ennemy.GetComponent<Ennemy>().Pathfinder = _grid.GetComponent<Pathfinder>();
+            t_ennemy.transform.position = _grid.GridToWorld(t_tile);
+            t_validTiles.Remove(t_tile);
         }
     }
 
