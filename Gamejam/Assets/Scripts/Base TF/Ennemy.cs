@@ -117,7 +117,7 @@ public class Ennemy : MonoBehaviour
         {
             CalculatePath();
             m_NextGridPos = new Vector2Int((int)m_Path.Checkpoints[1].x, (int)m_Path.Checkpoints[1].y);
-            grid.GetTile(m_NextGridPos).BaseCost -= (uint)_addCost;
+            grid.GetTile(m_NextGridPos).BaseCost += (uint)_addCost;
             TurnOffDanger(grid.WorldToGrid(transform.position));
             TurnOnDanger(m_NextGridPos);
             canMove = true;
