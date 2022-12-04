@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     private Vector2Int _targetPosGrid;
     private Animator m_anim;
     private SoundHandler _soundHandler;
+    private BoxCollider2D _collider;
 
     [SerializeField] private TextMeshProUGUI oreText;
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour
     }
 
     private void Awake() {
+        _collider = GetComponent<BoxCollider2D>();
         m_anim = GetComponent<Animator>();
         _soundHandler = GetComponent<SoundHandler>();
     }
@@ -77,10 +79,13 @@ public class Player : MonoBehaviour
                     isMoving = true;
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Space)) time++;
+            _collider.enabled = true;
             m_anim.SetBool("isMoving", isMoving);
             Flip();
         }
         else {
+            _collider.enabled = false;
             MoveTo(_targetPos);
         }
     }

@@ -12,6 +12,7 @@ public class Ennemy : MonoBehaviour
     public bool canMove;
     public bool canGenerate;
 
+    private int _addCost = 100;
     private Path m_Path;
     private Animator m_Anim;
     private Vector2Int m_NextGridPos;
@@ -103,6 +104,7 @@ public class Ennemy : MonoBehaviour
                 canMove = false;
                 TurnOnDanger(grid.WorldToGrid(transform.position));
                 canGenerate = true;
+                grid.GetTile(grid.WorldToGrid(transform.position)).BaseCost += (uint)_addCost;
             }
         }
         if(Player.time % nbActionToMove == nbActionToMove - 2)
@@ -117,6 +119,7 @@ public class Ennemy : MonoBehaviour
             TurnOnDanger(m_NextGridPos);
             canMove = true;
             canGenerate = false;
+            grid.GetTile(grid.WorldToGrid(transform.position)).BaseCost -= (uint)_addCost;
         }
     }
 
