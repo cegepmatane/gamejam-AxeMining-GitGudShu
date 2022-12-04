@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ground
-  m_Shader: {fileID: -6465566751694194690, guid: f17ce0ebc2365d14e907161a368a04ba, type: 3}
+  m_Name: miner
+  m_Shader: {fileID: -6465566751694194690, guid: e193477517e2cb0408c328e5cb62d09f, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,24 +20,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
+    - _Emission:
+        m_Texture: {fileID: 2800000, guid: a66e280288f2dd243b3630ff85a66f1b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2ec33615b6b5e4247891ffead4056fe5, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MaskTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _dangerSign:
-        m_Texture: {fileID: 2800000, guid: 99c06b1157a66264fad143dd4e5a22d1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 265a8b8291905404d8684a6b745a1e55, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -54,16 +42,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EnableExternalAlpha: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _isDanger: 0
     m_Colors:
-    - _Color: {r: 1.7207954, g: 0, b: 0, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 14.226009, g: 0, b: 0.6439758, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &3678878500369337092
+--- !u!114 &7477095241145977648
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
