@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     private Tile _targetTile;
     private Vector2Int _targetPosGrid;
     private Animator m_anim;
+    private SoundHandler _soundHandler;
 
     [SerializeField] private TextMeshProUGUI oreText;
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
         transform.position = grid.GridToWorld(grid.WorldToGrid(transform.position));
         _targetPos = transform.position;
         m_anim = GetComponent<Animator>();
+        _soundHandler = GetComponent<SoundHandler>();
     }
 
     // Update is called once per frame
@@ -112,10 +114,11 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        GameObject gameObject = collision.gameObject;
+        if (gameObject.CompareTag("Enemy"))
         {
             Debug.Log("DIES");
-            Animator t_enemyAnim = collision.gameObject.GetComponent<Ennemy>().GetComponent<Animator>();
+            Animator t_enemyAnim = gameObject.GetComponent<Animator>();
             t_enemyAnim.SetTrigger("Explode");
             m_anim.SetTrigger("Dead");
         }
