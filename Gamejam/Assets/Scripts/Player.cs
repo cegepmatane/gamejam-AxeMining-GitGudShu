@@ -114,6 +114,7 @@ public class Player : MonoBehaviour
 
     void getOre()
     {
+        time++;
         ores++;
         oreText.text = "x" + ores;
         scoreText.text = "x" + ores;

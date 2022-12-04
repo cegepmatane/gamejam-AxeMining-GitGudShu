@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class OreTile : Tile
 {
-    [SerializeField] private GameObject _wallTile;
+    [SerializeField] private GameObject _empty;
 
     public void Replace() {
         Grid t_grid = GetComponentInParent<Grid>();
         t_grid.tiles.Remove(this);
         Destroy(gameObject);
 
-        GameObject t_wall = Instantiate(_wallTile, t_grid.transform);
+        GameObject t_wall = Instantiate(_empty, t_grid.transform);
         t_wall.transform.position = t_grid.GridToWorld(new Vector2Int((int)x, (int)y));
         Sprite t_sprite = t_wall.GetComponent<SpriteRenderer>().sprite;
         float t_newScale = t_grid.CellSize / t_sprite.bounds.size.x;
