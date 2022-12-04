@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEngine;
 using System;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     public Grid grid;
 
     private int ores = 0;
+    private bool _facingRight = true;
     private Vector3 _targetPos;
     private Vector3 _direction;
     private Vector3 _mouvement;
@@ -68,13 +70,13 @@ public class Player : MonoBehaviour
             else if (Input.GetAxisRaw("Horizontal") != 0) {
                 _targetPosGrid = grid.WorldToGrid(new Vector3(transform.position.x + Input.GetAxisRaw("Horizontal") * grid.CellSize, transform.position.y));
                 if (canMoveTo(_targetPosGrid)) {
-                    
                     time++;
                     _targetPos = grid.GridToWorld(_targetPosGrid);
                     isMoving = true;
                 }
             }
             m_anim.SetBool("isMoving", isMoving);
+            Flip();
         }
         else {
             MoveTo(_targetPos);
@@ -150,5 +152,19 @@ public class Player : MonoBehaviour
         Debug.Log("Player dead");
         _soundHandler.PlayDie();
         OnPlayerDeath?.Invoke();
+    }
+
+    public void Flip()
+    {
+        if (Input.GetAxisRaw("Horizontal") < 0 && _facingRight)
+        {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            _facingRight = false;
+        }
+        else if (Input.GetAxisRaw("Horizontal") > 0 && !_facingRight)
+        {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            _facingRight = true;
+        }
     }
 }
