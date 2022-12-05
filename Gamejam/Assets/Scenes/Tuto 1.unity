@@ -2108,13 +2108,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: 'Some of you young''uns work down in mines? Good! Mining, that''s a proper
-    Dwarf job! Ya forgot your pick? Bah! Ya know how to swing an axe don''t ya! Should
-    do the trick just fine!
+    Dwarf job! But um... the pickaxe was too expensive.. Bah! Ya know how to swing
+    an axe don''t ya! Should do the trick just fine!
 
 
-    I''ma teach ya how it''s done! Ya can use directional
-    keys to move around. Ya can move towards an ore to mine it and ya need all of
-    them to proceed through the stairs!'
+    I''ma teach ya how it''s
+    done! Ya can use directional keys to move around. Ya can move towards an ore
+    to mine it and ya need all of them to proceed through the stairs!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 63c933ff0d10a88479a0cdaf2885488a, type: 2}
   m_sharedMaterial: {fileID: 6289165993650939190, guid: 63c933ff0d10a88479a0cdaf2885488a, type: 2}
@@ -2141,7 +2141,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5.85
+  m_fontSize: 5.8
   m_fontSizeBase: 7.58
   m_fontWeight: 400
   m_enableAutoSizing: 1
