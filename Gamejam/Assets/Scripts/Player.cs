@@ -145,8 +145,15 @@ public class Player : MonoBehaviour
 
         if(gameObject.CompareTag("Stairs") && grid.oreAmount == ores)
         {
-            _soundHandler.PlayStairs();
-            SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
+            if (SceneManager.GetSceneByName("Level 3") == SceneManager.GetActiveScene())
+            {
+                Win();
+            }
+            else
+            {
+                _soundHandler.PlayStairs();
+                SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
+            }
         }
     }
 
