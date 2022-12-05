@@ -523,7 +523,7 @@ MonoBehaviour:
   maxRow: 14
   minCol: 8
   maxCol: 14
-  chanceOfGround: 3
+  chanceOfGround: 2
   oreAmount: 10
   ennemyAmount: 2
   _grid: {fileID: 1276288217}
@@ -743,7 +743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7382724922125016251, guid: bf5e96a4f11f43a4b84cc2720b14e612, type: 3}
       propertyPath: orthographic size
-      value: 6.0625
+      value: 11.1875
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5e96a4f11f43a4b84cc2720b14e612, type: 3}

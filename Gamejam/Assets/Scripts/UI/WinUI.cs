@@ -28,6 +28,7 @@ public class WinUI : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        Player.time = 0;
         SceneManager.LoadScene(0);
     }
 }
