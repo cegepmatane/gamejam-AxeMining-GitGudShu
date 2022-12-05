@@ -523,7 +523,7 @@ MonoBehaviour:
   maxRow: 14
   minCol: 8
   maxCol: 14
-  chanceOfGround: 2
+  chanceOfGround: 3
   oreAmount: 10
   ennemyAmount: 2
   _grid: {fileID: 1276288217}
